@@ -1,6 +1,21 @@
 # Template for Orderly SDK v2 based on Remix
 
-## Development
+## Getting started
+
+1. Clone the code:
+
+```sh
+git clone https://github.com/OrderlyNetwork/orderly-js-sdk-remix-template.git
+cd orderly-js-sdk-remix-template
+```
+
+2. Install the dependencies
+
+```sh
+npm install
+```
+
+3. Development
 
 Run the dev server:
 
@@ -8,7 +23,7 @@ Run the dev server:
 npm run dev
 ```
 
-## Deployment
+4. Deployment
 
 First, build your app for production:
 
@@ -22,13 +37,16 @@ Then run the app in production mode:
 npm start
 ```
 
-Now you'll need to pick a host to deploy it to.
+5. Create docker image
 
-### DIY
+```sh
+docker build -t orderly-js-sdk-remix-template .
+```
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+## Docs
 
-Make sure to deploy the output of `npm run build`
+For more information, please visit the following link:
 
-- `build/server`
-- `build/client`
+- [Orderly JS SDK](https://github.com/OrderlyNetwork/js-sdk)
+- [SDK documentation](https://orderly.network/docs/sdks)
+
