@@ -36,12 +36,15 @@ const config: OrderlyConfig = {
             description: "Trade with Orderly to earn ORDER",
             icon: <OrderlyIcon size={14} />,
             activeIcon: <OrderlyActiveIcon size={14} />,
+            target: "_blank",
           },
 
           {
             name: "Staking",
             href: "https://app.orderly.network/staking",
             description: "Stake ORDER/esORDER to acquire VALOR",
+            icon: <OrderlyIcon size={14} />,
+            activeIcon: <OrderlyActiveIcon size={14} />,
             target: "_blank",
           },
         ],

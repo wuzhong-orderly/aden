@@ -7,9 +7,9 @@ const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
   return (
     <WalletConnectorProvider>
       <OrderlyAppProvider
-        brokerId="orderly"
-        brokerName="Orderly"
-        networkId="testnet"
+        brokerId={import.meta.env.VITE_ORDERLY_BROKER_ID}
+        brokerName={import.meta.env.VITE_ORDERLY_BROKER_NAME}
+        networkId={import.meta.env.VITE_ORDERLY_NETWORK_ID}
         appIcons={config.orderlyAppProvider.appIcons}
       >
         {props.children}

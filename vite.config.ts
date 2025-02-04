@@ -17,6 +17,7 @@ export default defineConfig(() => {
     },
     plugins: [
       remix({
+        basename: "/broker-template",
         ssr: false,
         future: {
           v3_fetcherPersist: true,
