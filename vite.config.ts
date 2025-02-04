@@ -4,15 +4,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import { cjsInterop } from "vite-plugin-cjs-interop";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 
-declare module "@remix-run/node" {
-  interface Future {
-    v3_singleFetch: true;
-  }
-}
-
 export default defineConfig(() => {
   const isProduction = process.env.NODE_ENV === "production";
-  const noExternal: any[] = [/^@orderly.*$/, "@uiw/react-split"];
+  const noExternal = [/^@orderly.*$/, "@uiw/react-split"];
   if (isProduction) {
     noExternal.push("ethers");
   }
@@ -20,11 +14,10 @@ export default defineConfig(() => {
   return {
     ssr: {
       noExternal,
-      // noExternal: [/^@orderly.*$/, "ethers"],
     },
     plugins: [
       remix({
-        ssr: true,
+        ssr: false,
         future: {
           v3_fetcherPersist: true,
           v3_relativeSplatPath: true,
