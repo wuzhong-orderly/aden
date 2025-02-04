@@ -1,6 +1,8 @@
 # Orderly Broker UI Template
 
-This template provides a quick way to set up a customized trading UI for Orderly Network brokers, built with Remix and deployable on GitHub Pages.
+This template provides a quick way to set up a customized trading UI for Orderly Network brokers, built with Remix and deployable on Vercel.
+
+🔗 [Live Demo](https://orderlynetwork.github.io/broker-template/)
 
 ## Quick Start
 
@@ -28,9 +30,14 @@ yarn install
 Edit the `.env` file to set up your broker details:
 
 ```env
+# Broker settings
 VITE_ORDERLY_BROKER_ID=your_broker_id
 VITE_ORDERLY_BROKER_NAME=Your Broker Name
 VITE_ORDERLY_NETWORK_ID=mainnet  # or testnet for testing
+
+# Meta tags
+VITE_APP_NAME=Your App Name
+VITE_APP_DESCRIPTION=Your app description for SEO
 ```
 
 ### 2. Theme Customization
@@ -71,35 +78,16 @@ yarn dev
 yarn build
 ```
 
-2. Base URL Configuration:
+2. Deploy to Vercel:
+   - Create an account on [Vercel](https://vercel.com) if you haven't already
+   - Install Vercel CLI: `yarn global add vercel`
+   - Run `vercel` in your project directory and follow the prompts
+   - For subsequent deployments, use `vercel --prod` to deploy to production
 
-The base URL configuration depends on your deployment method:
-
-- **For GitHub Pages subdirectory deployment** (`https://your-username.github.io/broker-template/`):
-  Keep the basename configuration in `vite.config.ts`:
-  ```typescript
-  // vite.config.ts
-  remix({
-    basename: "/your-repo-name",  // Change this to match your repository name
-    // ... other options
-  })
-  ```
-
-- **For custom domain deployment** (`https://your-domain.com`):
-  Remove the basename configuration in `vite.config.ts`:
-  ```typescript
-  // vite.config.ts
-  remix({
-    // basename: "/your-repo-name",  // Remove or comment out this line
-    // ... other options
-  })
-  ```
-
-3. Deploy to GitHub Pages:
-   - Enable GitHub Pages in your repository settings
-   - Set the build and deployment source to branch (not GitHub Actions)
-   - Select the branch you want to deploy (typically `gh-pages` or `main`)
-   - For custom domain setup, follow the [GitHub Pages custom domain configuration guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
+For custom domain setup:
+   - Go to your project settings in Vercel dashboard
+   - Navigate to the "Domains" section
+   - Add and configure your custom domain
 
 ## Additional Resources
 

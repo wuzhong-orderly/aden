@@ -11,7 +11,7 @@
     "build": "remix vite:build",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "preview": "vite preview",
+    "preview": "remix-serve ./build/server/index.js",
     "typecheck": "tsc"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "@orderly.network/wallet-connector": "2.0.2",
     "@remix-run/node": "^2.15.3",
     "@remix-run/react": "^2.15.3",
+    "@remix-run/serve": "^2.15.3",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
