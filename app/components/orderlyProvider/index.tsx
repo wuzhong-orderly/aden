@@ -8,7 +8,6 @@ const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
 	const networkId = import.meta.env.VITE_NETWORK_ID as NetworkId;
 	const onChainChanged = useCallback(
 		(_chainId: number, {isTestnet}: {isTestnet: boolean}) => {
-			localStorage.setItem('orderly-networkId', isTestnet ? 'testnet' : 'mainnet');
       if (isTestnet && networkId === 'mainnet' || !isTestnet && networkId === 'testnet') {
         setTimeout(() => {
           const href = isTestnet ? import.meta.env.VITE_TESTNET_URL : import.meta.env.VITE_MAINNET_URL;
