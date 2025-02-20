@@ -1,5 +1,5 @@
-export function generatePageTitle(title: string, suffix = "Orderly") {
-  return `${title} | ${suffix}`;
+export function generatePageTitle(title: string) {
+  return `${title} | ${import.meta.env.VITE_ORDERLY_BROKER_NAME}`;
 }
 
 export function formatSymbol(symbol: string, format = "base-type") {
