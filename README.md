@@ -2,7 +2,7 @@
 
 This template provides a quick way to set up a customized trading UI for Orderly Network brokers, built with Remix and deployable on Vercel.
 
-🔗 [Live Demo](https://orderlynetwork.github.io/broker-template/)
+🔗 [Live Demo](https://broker-template-seven.vercel.app/)
 
 ## Quick Start
 
