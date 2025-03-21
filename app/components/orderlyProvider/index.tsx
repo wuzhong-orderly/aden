@@ -3,10 +3,11 @@ import { WalletConnectorProvider } from "@orderly.network/wallet-connector";
 import { OrderlyAppProvider } from "@orderly.network/react-app";
 import config from "@/utils/config";
 import { NetworkId } from "@orderly.network/types";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
 const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
 	const networkId = import.meta.env.VITE_NETWORK_ID as NetworkId;
-	const onChainChanged = useCallback(
+  const onChainChanged = useCallback(
 		(_chainId: number, {isTestnet}: {isTestnet: boolean}) => {
       if (isTestnet && networkId === 'mainnet' || !isTestnet && networkId === 'testnet') {
         setTimeout(() => {
@@ -19,10 +20,10 @@ const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[],
-	);
+  );
   
   return (
-    <WalletConnectorProvider>
+    <WalletConnectorProvider solanaInitial={{network: networkId === 'mainnet' ? WalletAdapterNetwork.Mainnet : WalletAdapterNetwork.Devnet}}>
       <OrderlyAppProvider
         brokerId={import.meta.env.VITE_ORDERLY_BROKER_ID}
         brokerName={import.meta.env.VITE_ORDERLY_BROKER_NAME}

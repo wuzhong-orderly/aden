@@ -2143,7 +2143,7 @@
     eventemitter3 "^5.0.1"
     lodash.merge "^4.6.2"
 
-"@orderly.network/default-evm-adapter@2.0.7":
+"@orderly.network/default-evm-adapter@2.0.7", "@orderly.network/default-evm-adapter@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@orderly.network/default-evm-adapter/-/default-evm-adapter-2.0.7.tgz#7cd3d39e7fe6ea744423ad65d1e8606fbf85f6f5"
   integrity sha512-vOm0mT1zKvgdys2LAUyolb0i7KByjoUBdKou9Ux8q3+lQCidyLzcdoKnuMaUnnWt4J6kCvLaMmSMrnw5mgmqjA==
@@ -2153,7 +2153,7 @@
     "@orderly.network/types" "2.0.7"
     bs58 "^5.0.0"
 
-"@orderly.network/default-solana-adapter@2.0.7":
+"@orderly.network/default-solana-adapter@2.0.7", "@orderly.network/default-solana-adapter@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@orderly.network/default-solana-adapter/-/default-solana-adapter-2.0.7.tgz#74262822c4d8fa09eabb7377dc83f2bb6af1dff6"
   integrity sha512-RYgbyYcTz7sw6I0EoAjQg4EsgosHJa321BKxGsQ+mwxPrH6Yxwk5GnzNlhZShoATLBcitVgu8KO5Fn9dE+W1EA==
@@ -2171,7 +2171,7 @@
     ethereum-cryptography "2.2.1"
     ethers "^6.13.2"
 
-"@orderly.network/hooks@2.0.7":
+"@orderly.network/hooks@2.0.7", "@orderly.network/hooks@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@orderly.network/hooks/-/hooks-2.0.7.tgz#5cb3075f15ca78f447d3a5642c990815d31d7be7"
   integrity sha512-qGPTy66xXGn+G+UFZbcVyTuiJA0BuuJo8nNbfpe9wd8qUkZFmLyFI+3cJw3BwrszTJxNBaMPmc6WFuJuMb6RoQ==
@@ -2482,7 +2482,7 @@
     lodash "^4.17.21"
     rxjs "^7.5.5"
 
-"@orderly.network/web3-provider-ethers@2.0.7":
+"@orderly.network/web3-provider-ethers@2.0.7", "@orderly.network/web3-provider-ethers@^2.0.7":
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/@orderly.network/web3-provider-ethers/-/web3-provider-ethers-2.0.7.tgz#7cdf9403127a5f2047581e58ea2e3b963857eeb1"
   integrity sha512-JISTuXZ11Y+PeVSZu0wAYwrRfHvj5vArYqVyk5OZZYtNTRxsGt9Q7m23+9VEx1gAYrOGpVAn/IAbPPr6K3lr5w==
@@ -3994,6 +3994,16 @@
   version "0.9.23"
   resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-base/-/wallet-adapter-base-0.9.23.tgz#3b17c28afd44e173f44f658bf9700fd637e12a11"
   integrity sha512-apqMuYwFp1jFi55NxDfvXUX2x1T0Zh07MxhZ/nCCTGys5raSfYUh82zen2BLv8BSDj/JxZ2P/s7jrQZGrX8uAw==
+  dependencies:
+    "@solana/wallet-standard-features" "^1.1.0"
+    "@wallet-standard/base" "^1.0.1"
+    "@wallet-standard/features" "^1.0.3"
+    eventemitter3 "^4.0.7"
+
+"@solana/wallet-adapter-base@^0.9.24":
+  version "0.9.24"
+  resolved "https://registry.yarnpkg.com/@solana/wallet-adapter-base/-/wallet-adapter-base-0.9.24.tgz#648164f2f90a5ea3bbb5760b05f960b7fb1f4d6b"
+  integrity sha512-f3kwHF/2Lx3YgcO37B45MM46YLFy4QkdLemZ+N/0SwLAnSfhq3+Vb9bC5vuoupMJ/onos09TIDeIxRdg/+51kw==
   dependencies:
     "@solana/wallet-standard-features" "^1.1.0"
     "@wallet-standard/base" "^1.0.1"
