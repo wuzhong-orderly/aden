@@ -21,6 +21,7 @@ export default defineConfig(() => {
     },
     plugins: [
       remix({
+        basename: basePath,
         ssr: false,
         future: {
           v3_fetcherPersist: true,
