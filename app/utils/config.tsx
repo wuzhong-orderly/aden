@@ -2,6 +2,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { OrderlyActiveIcon, OrderlyIcon } from "../components/icons/orderly";
+import { withBasePath } from "./base-path";
 
 export type OrderlyConfig = {
   orderlyAppProvider: {
@@ -60,25 +61,25 @@ const config: OrderlyConfig = {
   orderlyAppProvider: {
     appIcons: {
       main: {
-        img: "/orderly-logo.svg",
+        img: withBasePath("/orderly-logo.svg"),
       },
       secondary: {
-        img: "/orderly-logo-secondary.svg",
+        img: withBasePath("/orderly-logo-secondary.svg"),
       },
     },
   },
   tradingPage: {
     tradingViewConfig: {
-      scriptSRC: "/tradingview/charting_library/charting_library.js",
-      library_path: "/tradingview/charting_library/",
-      customCssUrl: "/tradingview/chart.css",
+      scriptSRC: withBasePath("/tradingview/charting_library/charting_library.js"),
+      library_path: withBasePath("/tradingview/charting_library/"),
+      customCssUrl: withBasePath("/tradingview/chart.css"),
     },
     sharePnLConfig: {
       backgroundImages: [
-        "/pnl/poster_bg_1.png",
-        "/pnl/poster_bg_2.png",
-        "/pnl/poster_bg_3.png",
-        "/pnl/poster_bg_4.png",
+        withBasePath("/pnl/poster_bg_1.png"),
+        withBasePath("/pnl/poster_bg_2.png"),
+        withBasePath("/pnl/poster_bg_3.png"),
+        withBasePath("/pnl/poster_bg_4.png"),
       ],
 
       color: "rgba(255, 255, 255, 0.98)",
