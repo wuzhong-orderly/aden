@@ -11,7 +11,11 @@ export default defineConfig(() => {
     noExternal.push("ethers");
   }
 
+  // Set the base path for assets in production builds (used for GitHub Pages)
+  const basePath = process.env.PUBLIC_PATH || "/";
+
   return {
+    base: basePath,
     ssr: {
       noExternal,
     },

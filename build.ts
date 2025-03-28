@@ -59,6 +59,10 @@ async function clearDirectory(dir: string) {
 async function main() {
   const buildDir = "./build/client";
 
+  // Get the base path from environment variable or default to '/'
+  const basePath = process.env.PUBLIC_PATH || "/";
+  console.log(`Using base path: ${basePath}`);
+
   // Step 1: Clear build directory
   console.log("Clearing build directory...");
   await clearDirectory(buildDir);
