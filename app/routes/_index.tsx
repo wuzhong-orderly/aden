@@ -1,9 +1,7 @@
-import {
-  LoaderFunction,
-  type MetaFunction,
-} from "@remix-run/node";
+import { type MetaFunction } from "@remix-run/node";
+import { useNavigate } from "@remix-run/react";
+import { useEffect } from "react";
 import { DEFAULT_SYMBOL } from "@/utils/storage";
-import { redirect } from "@remix-run/node";
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,7 +10,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader: LoaderFunction = () => {
-  return redirect(`/perp/${DEFAULT_SYMBOL}`);
-};
+export default function Index() {
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    navigate(`/perp/${DEFAULT_SYMBOL}`);
+  }, [navigate]);
+
+  return null;
+}
