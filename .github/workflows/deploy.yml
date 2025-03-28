@@ -45,7 +45,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
-          github-token: ${{ secrets.PAT }}
+          token: ${{ secrets.PAT }}
           enablement: true
 
       - name: Upload artifact
