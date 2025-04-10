@@ -52,9 +52,9 @@ const config: OrderlyConfig = {
       },
     },
     footerProps: {
-      telegramUrl: "https://orderly.network",
-      discordUrl: "https://discord.com/invite/orderlynetwork",
-      twitterUrl: "https://twitter.com/OrderlyNetwork",
+      telegramUrl: import.meta.env.VITE_TELEGRAM_URL ?? undefined,
+      discordUrl: import.meta.env.VITE_DISCORD_URL ?? undefined,
+      twitterUrl: import.meta.env.VITE_TWITTER_URL ?? undefined,
       trailing: <span className="oui-text-2xs oui-text-base-contrast-54">Charts powered by <a href="https://tradingview.com" target="_blank" rel="noopener noreferrer">TradingView</a></span>
     },
   },
