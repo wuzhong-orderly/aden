@@ -59,7 +59,7 @@ Required assets:
 - Place your logos in the `public` directory:
   - Main logo: `public/orderly-logo.svg`
   - Secondary logo: `public/orderly-logo-secondary.svg`
-  - Favicon: `public/favicon.png`
+  - Favicon: `public/favicon.webp`
 - PnL sharing backgrounds: `public/pnl/poster_bg_[1-4].png`
 
 ## Development
