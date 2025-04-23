@@ -7,5 +7,8 @@ export const meta: MetaFunction = () => {
 };
 
 export default function FeeTierPage() {
-  return <FeeTierModule.FeeTierPage />;
+  return <FeeTierModule.FeeTierPage dataAdapter={() => ({
+    columns: [],
+    dataSource: [],
+  })} />;
 }
