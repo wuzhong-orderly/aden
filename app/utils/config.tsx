@@ -61,11 +61,11 @@ const config: OrderlyConfig = {
   orderlyAppProvider: {
     appIcons: {
       main:
-        import.meta.env.VITE_HAS_PRIMARY_LOGO
+        import.meta.env.VITE_HAS_PRIMARY_LOGO === "true"
           ? { component: <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} /> }
           : { img: withBasePath("/orderly-logo.svg") },
       secondary: {
-        img: import.meta.env.VITE_HAS_SECONDARY_LOGO
+        img: import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
           ? withBasePath("/logo.webp")
           : withBasePath("/orderly-logo-secondary.svg"),
       },
