@@ -20,6 +20,7 @@
     "@orderly.network/portfolio": "2.1.1",
     "@orderly.network/react-app": "2.1.1",
     "@orderly.network/trading": "2.1.1",
+    "@orderly.network/trading-leaderboard": "2.1.1",
     "@orderly.network/types": "2.1.1",
     "@orderly.network/ui": "2.1.1",
     "@orderly.network/ui-scaffold": "2.1.1",

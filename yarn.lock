@@ -2420,6 +2420,22 @@
     "@orderly.network/utils" "2.1.1"
     date-fns "^3.6.0"
 
+"@orderly.network/trading-leaderboard@2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@orderly.network/trading-leaderboard/-/trading-leaderboard-2.1.1.tgz#7f99800a5f051a8f197fb3507b7f65962814ef17"
+  integrity sha512-Nr17APy20dnb2/UftB6eaE19dR2ijapXeMkjxDCtp+acZKz43p2H/ZZLK6t8oUBiWAx2P64lMx3K815/hTtwgQ==
+  dependencies:
+    "@orderly.network/hooks" "2.1.1"
+    "@orderly.network/i18n" "2.1.1"
+    "@orderly.network/react-app" "2.1.1"
+    "@orderly.network/trading" "2.1.1"
+    "@orderly.network/types" "2.1.1"
+    "@orderly.network/ui" "2.1.1"
+    "@orderly.network/ui-connector" "2.1.1"
+    "@orderly.network/utils" "2.1.1"
+    date-fns "^3.6.0"
+    embla-carousel-react "^8.2.0"
+
 "@orderly.network/trading@2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@orderly.network/trading/-/trading-2.1.1.tgz#de3d291b4694e3aab421f6bdc96eade4875b0cae"
