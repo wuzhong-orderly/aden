@@ -4,6 +4,11 @@ import { AppLogos } from "@orderly.network/react-app";
 import { OrderlyActiveIcon, OrderlyIcon } from "../components/icons/orderly";
 import { withBasePath } from "./base-path";
 
+interface MainNavItem {
+  name: string;
+  href: string;
+}
+
 export type OrderlyConfig = {
   orderlyAppProvider: {
     appIcons: AppLogos;
@@ -18,16 +23,45 @@ export type OrderlyConfig = {
   };
 };
 
+// All available menu items
+const ALL_MENU_ITEMS: MainNavItem[] = [
+  { name: "Trading", href: "/" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Markets", href: "/markets" },
+  { name: "Leaderboard", href: "/leaderboard" },
+];
+
+// Get enabled menu items based on environment variable
+const getEnabledMenus = (): MainNavItem[] => {
+  const enabledMenusEnv = import.meta.env.VITE_ENABLED_MENUS;
+  
+  if (!enabledMenusEnv || typeof enabledMenusEnv !== 'string' || enabledMenusEnv.trim() === '') {
+    // If no environment variable is set, show all menu items
+    return ALL_MENU_ITEMS;
+  }
+  
+  try {
+    // Parse comma-separated list of menu names
+    const enabledMenuNames = enabledMenusEnv.split(',').map(name => name.trim());
+    
+    // Filter the menu items to only include enabled ones
+    const enabledMenus = ALL_MENU_ITEMS.filter(item => 
+      enabledMenuNames.includes(item.name)
+    );
+    
+    // If no matching items found (e.g., due to typos in env var), return all items
+    return enabledMenus.length > 0 ? enabledMenus : ALL_MENU_ITEMS;
+  } catch (e) {
+    console.warn("Error parsing VITE_ENABLED_MENUS:", e);
+    return ALL_MENU_ITEMS;
+  }
+};
+
 const config: OrderlyConfig = {
   scaffold: {
     mainNavProps: {
       initialMenu: "/",
-      mainMenus: [
-        { name: "Trading", href: "/" },
-        { name: "Portfolio", href: "/portfolio" },
-        { name: "Markets", href: "/markets" },
-        { name: "Leaderboard", href: "/leaderboard" },
-      ],
+      mainMenus: getEnabledMenus(),
       campaigns: {
         name: "Reward",
         href: "/rewards",
