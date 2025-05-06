@@ -1,13 +1,17 @@
 import { useCallback } from "react";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useSearchParams } from "@remix-run/react";
 import { RouteOption } from "@orderly.network/ui-scaffold";
 import { getSymbol } from "@/utils/storage";
 
 export function useNav() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const onRouteChange = useCallback(
     (option: RouteOption) => {
+      const searchParamsString = searchParams.toString();
+      const queryString = searchParamsString ? `?${searchParamsString}` : "";
+
       if (option.target === "_blank") {
         window.open(option.href);
         return;
@@ -15,7 +19,7 @@ export function useNav() {
 
       if (option.href === "/") {
         const symbol = getSymbol();
-        navigate(`/perp/${symbol}`);
+        navigate(`/perp/${symbol}${queryString}`);
         return;
       }
 
@@ -30,9 +34,9 @@ export function useNav() {
 
       const path = routeMap[option.href] || option.href;
 
-      navigate(path);
+      navigate(`${path}${queryString}`);
     },
-    [navigate]
+    [navigate, searchParams]
   );
 
   return { onRouteChange };

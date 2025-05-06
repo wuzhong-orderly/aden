@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "@remix-run/react";
+import { useNavigate, useParams, useSearchParams } from "@remix-run/react";
 import { MetaFunction } from "@remix-run/node";
 import { API } from "@orderly.network/types";
 import { TradingPage } from "@orderly.network/trading";
@@ -15,6 +15,7 @@ export default function PerpPage() {
   const params = useParams();
   const [symbol, setSymbol] = useState(params.symbol!);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     updateSymbol(symbol);
@@ -24,9 +25,13 @@ export default function PerpPage() {
     (data: API.Symbol) => {
       const symbol = data.symbol;
       setSymbol(symbol);
-      navigate(`/perp/${symbol}`);
+      
+      const searchParamsString = searchParams.toString();
+      const queryString = searchParamsString ? `?${searchParamsString}` : '';
+      
+      navigate(`/perp/${symbol}${queryString}`);
     },
-    [navigate]
+    [navigate, searchParams]
   );
 
   return (

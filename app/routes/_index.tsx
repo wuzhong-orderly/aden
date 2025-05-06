@@ -1,5 +1,5 @@
 import { type MetaFunction } from "@remix-run/node";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useSearchParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { DEFAULT_SYMBOL } from "@/utils/storage";
 
@@ -12,10 +12,13 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    navigate(`/perp/${DEFAULT_SYMBOL}`);
-  }, [navigate]);
+    const searchParamsString = searchParams.toString();
+    const redirectPath = `/perp/${DEFAULT_SYMBOL}${searchParamsString ? `?${searchParamsString}` : ''}`;
+    navigate(redirectPath);
+  }, [navigate, searchParams]);
 
   return null;
 }

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { MetaFunction } from "@remix-run/node";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate, useSearchParams } from "@remix-run/react";
 import { API } from "@orderly.network/types";
 import { Box } from "@orderly.network/ui";
 import { PositionsModule } from "@orderly.network/portfolio";
@@ -16,14 +16,19 @@ export const meta: MetaFunction = () => {
 export default function PositionsPage() {
   const local = useTradingLocalStorage();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const onSymbolChange = useCallback(
     (data: API.Symbol) => {
       const symbol = data.symbol;
       updateSymbol(symbol);
-      navigate(`/perp/${symbol}`);
+      
+      const searchParamsString = searchParams.toString();
+      const queryString = searchParamsString ? `?${searchParamsString}` : '';
+      
+      navigate(`/perp/${symbol}${queryString}`);
     },
-    [navigate]
+    [navigate, searchParams]
   );
 
   return (
