@@ -31,13 +31,20 @@ const ALL_MENU_ITEMS: MainNavItem[] = [
   { name: "Leaderboard", href: "/leaderboard" },
 ];
 
+// Default enabled menu items (excluding Leaderboard)
+const DEFAULT_ENABLED_MENUS: MainNavItem[] = [
+  { name: "Trading", href: "/" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Markets", href: "/markets" },
+];
+
 // Get enabled menu items based on environment variable
 const getEnabledMenus = (): MainNavItem[] => {
   const enabledMenusEnv = import.meta.env.VITE_ENABLED_MENUS;
   
   if (!enabledMenusEnv || typeof enabledMenusEnv !== 'string' || enabledMenusEnv.trim() === '') {
-    // If no environment variable is set, show all menu items
-    return ALL_MENU_ITEMS;
+    // If no environment variable is set, use default enabled menus (no Leaderboard)
+    return DEFAULT_ENABLED_MENUS;
   }
   
   try {
@@ -49,11 +56,11 @@ const getEnabledMenus = (): MainNavItem[] => {
       enabledMenuNames.includes(item.name)
     );
     
-    // If no matching items found (e.g., due to typos in env var), return all items
-    return enabledMenus.length > 0 ? enabledMenus : ALL_MENU_ITEMS;
+    // If no matching items found (e.g., due to typos in env var), return default enabled menus
+    return enabledMenus.length > 0 ? enabledMenus : DEFAULT_ENABLED_MENUS;
   } catch (e) {
     console.warn("Error parsing VITE_ENABLED_MENUS:", e);
-    return ALL_MENU_ITEMS;
+    return DEFAULT_ENABLED_MENUS;
   }
 };
 
