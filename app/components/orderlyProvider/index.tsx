@@ -1,11 +1,6 @@
-import { FC, ReactNode, useCallback } from "react";
-import { WalletConnectorProvider } from "@orderly.network/wallet-connector";
+import { ReactNode, useCallback, lazy, Suspense, useState, useEffect } from "react";
 import { OrderlyAppProvider } from "@orderly.network/react-app";
 import config from "@/utils/config";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
-import injected from "@web3-onboard/injected-wallets";
-import walletConnect from '@web3-onboard/walletconnect'
-import binance from "@binance/w3w-blocknative-connector";
 import type { NetworkId } from "@orderly.network/types";
 
 const NETWORK_ID_KEY = "orderly_network_id";
@@ -21,8 +16,55 @@ const setNetworkId = (networkId: NetworkId) => {
 	}
 };
 
-const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
+const PrivyConnector = lazy(() => import("@/components/orderlyProvider/privyConnector"));
+const WalletConnector = lazy(() => import("@/components/orderlyProvider/walletConnector"));
+
+const LoadingSpinner = () => (
+	<div className="loading-container">
+		<div className="loading-spinner"></div>
+		<style>
+			{`
+				.loading-container {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					width: 100%;
+					height: 100vh;
+					background-color: rgba(0, 0, 0, 0.03);
+				}
+				.loading-spinner {
+					width: 50px;
+					height: 50px;
+					border: 4px solid rgba(0, 0, 0, 0.1);
+					border-radius: 50%;
+					border-left-color: #09f;
+					animation: spin 1s linear infinite;
+				}
+				@keyframes spin {
+					0% {
+						transform: rotate(0deg);
+					}
+					100% {
+						transform: rotate(360deg);
+					}
+				}
+			`}
+		</style>
+	</div>
+);
+
+const OrderlyProvider = (props: { children: ReactNode }) => {
 	const networkId = getNetworkId();
+	const [isClient, setIsClient] = useState(false);
+	
+	const privyAppId = import.meta.env.VITE_PRIVY_APP_ID;
+	const privyTermsOfUse = import.meta.env.VITE_PRIVY_TERMS_OF_USE;
+	const usePrivy = !!(privyAppId && privyTermsOfUse);
+
+	// Handle client-side only rendering
+	useEffect(() => {
+		setIsClient(true);
+	}, []);
 
 	const onChainChanged = useCallback(
 		(_chainId: number, {isTestnet}: {isTestnet: boolean}) => {
@@ -39,36 +81,30 @@ const OrderlyProvider: FC<{ children: ReactNode }> = (props) => {
 		},
 		[]
 	);
-	
-	return (
-		<WalletConnectorProvider
-			solanaInitial={{network: networkId === 'mainnet' ? WalletAdapterNetwork.Mainnet : WalletAdapterNetwork.Devnet}}
-			evmInitial={import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID && typeof window !== 'undefined' ? {
-				options: {
-					wallets: [
-						injected(),
-						binance({ options: { lng: "en" } }),
-						walletConnect({
-							projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID,
-							qrModalOptions: {
-								themeMode: "dark",
-							},
-							dappUrl: window.location.origin,
-						}),
-					],
-				}
-			} : undefined}
+
+	const appProvider = (
+		<OrderlyAppProvider
+			brokerId={import.meta.env.VITE_ORDERLY_BROKER_ID}
+			brokerName={import.meta.env.VITE_ORDERLY_BROKER_NAME}
+			networkId={networkId}
+			onChainChanged={onChainChanged}
+			appIcons={config.orderlyAppProvider.appIcons}
 		>
-			<OrderlyAppProvider
-				brokerId={import.meta.env.VITE_ORDERLY_BROKER_ID}
-				brokerName={import.meta.env.VITE_ORDERLY_BROKER_NAME}
-				networkId={networkId}
-				onChainChanged={onChainChanged}
-				appIcons={config.orderlyAppProvider.appIcons}
-			>
-				{props.children}
-			</OrderlyAppProvider>
-		</WalletConnectorProvider>
+			{props.children}
+		</OrderlyAppProvider>
+	);
+
+	if (!isClient) {
+		return <LoadingSpinner />;
+	}
+
+	return (
+		<Suspense fallback={<LoadingSpinner />}>
+			{usePrivy
+				? <PrivyConnector networkId={networkId}>{appProvider}</PrivyConnector>
+				: <WalletConnector networkId={networkId}>{appProvider}</WalletConnector>
+			}
+		</Suspense>
 	);
 };
 
