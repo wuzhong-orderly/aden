@@ -3,6 +3,9 @@ import { WalletConnectorPrivyProvider, Network } from '@orderly.network/wallet-c
 import { injected, walletConnect } from 'wagmi/connectors';
 import type { NetworkId } from "@orderly.network/types";
 import { CreateConnectorFn } from 'wagmi';
+import { Adapter, WalletError , WalletAdapterNetwork, WalletNotReadyError } from '@solana/wallet-adapter-base';
+import { LedgerWalletAdapter, PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
+import { createDefaultAddressSelector, createDefaultAuthorizationResultCache, SolanaMobileWalletAdapter } from '@solana-mobile/wallet-adapter-mobile';
 
 const PrivyConnector = ({ children, networkId }: {
   children: ReactNode;
@@ -35,6 +38,28 @@ const PrivyConnector = ({ children, networkId }: {
       termsOfUse={termsOfUseUrl}
       wagmiConfig={{
         connectors
+      }}
+      solanaConfig={{
+        wallets: [
+          new PhantomWalletAdapter(),
+          new SolflareWalletAdapter(),
+          new LedgerWalletAdapter(),
+          new SolanaMobileWalletAdapter({
+            addressSelector: createDefaultAddressSelector(),
+            appIdentity: {
+              uri: `${location.protocol}//${location.host}`,
+            },
+            authorizationResultCache: createDefaultAuthorizationResultCache(),
+            chain: networkId === 'mainnet' ? WalletAdapterNetwork.Mainnet : WalletAdapterNetwork.Devnet,
+            onWalletNotFound: (adapter: SolanaMobileWalletAdapter) => {
+              console.log('-- mobile wallet adapter', adapter);
+              return Promise.reject(new WalletNotReadyError('wallet not ready'));
+            },
+          }),
+        ],
+        onError: (error: WalletError, adapter?: Adapter) => {
+          console.log("-- error", error, adapter);
+        },
       }}
       privyConfig={{
         config: {
