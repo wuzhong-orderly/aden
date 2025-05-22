@@ -16,7 +16,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@orderly.network/markets": "2.1.1",
+    "@orderly.network/markets": "2.1.2",
     "@orderly.network/portfolio": "2.1.2",
     "@orderly.network/react-app": "2.1.2",
     "@orderly.network/trading": "2.1.2",
