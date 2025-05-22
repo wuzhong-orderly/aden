@@ -108,7 +108,7 @@ const config: OrderlyConfig = {
           : { img: withBasePath("/orderly-logo.svg") },
       secondary: {
         img: import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
-          ? withBasePath("/logo.webp")
+          ? withBasePath("/logo-secondary.webp")
           : withBasePath("/orderly-logo-secondary.svg"),
       },
     },
