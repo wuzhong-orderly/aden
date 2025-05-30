@@ -22,6 +22,7 @@ export default defineConfig(() => {
     base: basePath,
     ssr: {
       noExternal,
+      external: ["@privy-io/cross-app-connect/rainbow-kit"],
     },
     plugins: [
       remix({

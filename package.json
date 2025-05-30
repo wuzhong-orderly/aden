@@ -16,16 +16,17 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@orderly.network/markets": "2.1.2",
-    "@orderly.network/portfolio": "2.1.2",
-    "@orderly.network/react-app": "2.1.2",
-    "@orderly.network/trading": "2.1.2",
-    "@orderly.network/trading-leaderboard": "2.1.2",
-    "@orderly.network/types": "2.1.2",
-    "@orderly.network/ui": "2.1.2",
-    "@orderly.network/ui-scaffold": "2.1.2",
-    "@orderly.network/wallet-connector": "2.1.2",
-    "@orderly.network/wallet-connector-privy": "2.1.2",
+    "@orderly.network/markets": "2.2.0",
+    "@orderly.network/portfolio": "2.2.0",
+    "@orderly.network/react-app": "2.2.0",
+    "@orderly.network/trading": "2.2.0",
+    "@orderly.network/trading-leaderboard": "2.2.0",
+    "@orderly.network/types": "2.2.0",
+    "@orderly.network/ui": "2.2.0",
+    "@orderly.network/ui-scaffold": "2.2.0",
+    "@orderly.network/wallet-connector": "2.2.0",
+    "@orderly.network/wallet-connector-privy": "2.2.0",
+    "@privy-io/cross-app-connect": "^0.2.1",
     "@remix-run/node": "^2.15.3",
     "@remix-run/react": "^2.15.3",
     "@remix-run/serve": "^2.15.3",
@@ -36,7 +37,7 @@
     "isbot": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "wagmi": "2.14.4"
+    "wagmi": "^2.15.4"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.0",
