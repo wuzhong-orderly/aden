@@ -61,6 +61,25 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 	const privyTermsOfUse = import.meta.env.VITE_PRIVY_TERMS_OF_USE;
 	const usePrivy = !!(privyAppId && privyTermsOfUse);
 
+	// Parse chain IDs from environment variables
+	const parseChainIds = (envVar: string | undefined): Array<{id: number}> | undefined => {
+		if (!envVar) return undefined;
+		return envVar.split(',')
+			.map(id => id.trim())
+			.filter(id => id)
+			.map(id => ({ id: parseInt(id, 10) }))
+			.filter(chain => !isNaN(chain.id));
+	};
+
+	const mainnetChains = parseChainIds(import.meta.env.VITE_ORDERLY_MAINNET_CHAINS);
+	const testnetChains = parseChainIds(import.meta.env.VITE_ORDERLY_TESTNET_CHAINS);
+
+	// Create chainFilter object only if at least one chain list is provided
+	const chainFilter = (mainnetChains || testnetChains) ? {
+		...(mainnetChains && { mainnet: mainnetChains }),
+		...(testnetChains && { testnet: testnetChains })
+	} : undefined;
+
 	// Handle client-side only rendering
 	useEffect(() => {
 		setIsClient(true);
@@ -89,6 +108,8 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 			networkId={networkId}
 			onChainChanged={onChainChanged}
 			appIcons={config.orderlyAppProvider.appIcons}
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			{...(chainFilter && { chainFilter } as any)}
 		>
 			{props.children}
 		</OrderlyAppProvider>
