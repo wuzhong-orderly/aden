@@ -6148,7 +6148,7 @@
   dependencies:
     defer-to-connect "^2.0.0"
 
-"@tanstack/query-core@5.79.0":
+"@tanstack/query-core@5.79.0", "@tanstack/query-core@^5.79.0":
   version "5.79.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.79.0.tgz#947e13c409555a8ca0a17abdf3dff9eb77af45e6"
   integrity sha512-s+epTqqLM0/TbJzMAK7OEhZIzh63P9sWz5HEFc5XHL4FvKQXQkcjI8F3nee+H/xVVn7mrP610nVXwOytTSYd0w==
