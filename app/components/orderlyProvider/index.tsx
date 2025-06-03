@@ -7,6 +7,18 @@ const NETWORK_ID_KEY = "orderly_network_id";
 
 const getNetworkId = (): NetworkId => {
 	if (typeof window === "undefined") return "mainnet";
+	
+	const disableMainnet = import.meta.env.VITE_DISABLE_MAINNET === 'true';
+	const disableTestnet = import.meta.env.VITE_DISABLE_TESTNET === 'true';
+	
+	if (disableMainnet && !disableTestnet) {
+		return "testnet";
+	}
+	
+	if (disableTestnet && !disableMainnet) {
+		return "mainnet";
+	}
+	
 	return (localStorage.getItem(NETWORK_ID_KEY) as NetworkId) || "mainnet";
 };
 
@@ -71,10 +83,11 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 			.filter(chain => !isNaN(chain.id));
 	};
 
-	const mainnetChains = parseChainIds(import.meta.env.VITE_ORDERLY_MAINNET_CHAINS);
-	const testnetChains = parseChainIds(import.meta.env.VITE_ORDERLY_TESTNET_CHAINS);
+	const disableMainnet = import.meta.env.VITE_DISABLE_MAINNET === 'true';
+	const mainnetChains = disableMainnet ? [] : parseChainIds(import.meta.env.VITE_ORDERLY_MAINNET_CHAINS);
+	const disableTestnet = import.meta.env.VITE_DISABLE_TESTNET === 'true';
+	const testnetChains = disableTestnet ? [] : parseChainIds(import.meta.env.VITE_ORDERLY_TESTNET_CHAINS);
 
-	// Create chainFilter object only if at least one chain list is provided
 	const chainFilter = (mainnetChains || testnetChains) ? {
 		...(mainnetChains && { mainnet: mainnetChains }),
 		...(testnetChains && { testnet: testnetChains })
