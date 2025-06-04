@@ -7,6 +7,7 @@ import { withBasePath } from "./base-path";
 interface MainNavItem {
   name: string;
   href: string;
+  target?: string;
 }
 
 export type OrderlyConfig = {
@@ -38,25 +39,56 @@ const DEFAULT_ENABLED_MENUS: MainNavItem[] = [
   { name: "Markets", href: "/markets" },
 ];
 
-// Get enabled menu items based on environment variable
+const getCustomMenuItems = (): MainNavItem[] => {
+  const customMenusEnv = import.meta.env.VITE_CUSTOM_MENUS;
+  
+  if (!customMenusEnv || typeof customMenusEnv !== 'string' || customMenusEnv.trim() === '') {
+    return [];
+  }
+  
+  try {
+    // Parse delimiter-separated menu items
+    // Expected format: "Documentation,https://docs.example.com;Blog,https://blog.example.com;Support,https://support.example.com"
+    const menuPairs = customMenusEnv.split(';').map(pair => pair.trim()).filter(pair => pair.length > 0);
+    
+    const validCustomMenus: MainNavItem[] = [];
+    
+    for (const pair of menuPairs) {
+      const [name, href] = pair.split(',').map(item => item.trim());
+      
+      if (!name || !href) {
+        console.warn("Invalid custom menu item format. Expected 'name,url':", pair);
+        continue;
+      }
+      
+      validCustomMenus.push({
+        name,
+        href,
+        target: "_blank",
+      });
+    }
+    
+    return validCustomMenus;
+  } catch (e) {
+    console.warn("Error parsing VITE_CUSTOM_MENUS:", e);
+    return [];
+  }
+};
+
 const getEnabledMenus = (): MainNavItem[] => {
   const enabledMenusEnv = import.meta.env.VITE_ENABLED_MENUS;
   
   if (!enabledMenusEnv || typeof enabledMenusEnv !== 'string' || enabledMenusEnv.trim() === '') {
-    // If no environment variable is set, use default enabled menus (no Leaderboard)
     return DEFAULT_ENABLED_MENUS;
   }
   
   try {
-    // Parse comma-separated list of menu names
     const enabledMenuNames = enabledMenusEnv.split(',').map(name => name.trim());
     
-    // Filter the menu items to only include enabled ones
     const enabledMenus = ALL_MENU_ITEMS.filter(item => 
       enabledMenuNames.includes(item.name)
     );
     
-    // If no matching items found (e.g., due to typos in env var), return default enabled menus
     return enabledMenus.length > 0 ? enabledMenus : DEFAULT_ENABLED_MENUS;
   } catch (e) {
     console.warn("Error parsing VITE_ENABLED_MENUS:", e);
@@ -64,11 +96,18 @@ const getEnabledMenus = (): MainNavItem[] => {
   }
 };
 
+const getAllMenuItems = (): MainNavItem[] => {
+  const enabledMenus = getEnabledMenus();
+  const customMenus = getCustomMenuItems();
+  
+  return [...enabledMenus, ...customMenus];
+};
+
 const config: OrderlyConfig = {
   scaffold: {
     mainNavProps: {
       initialMenu: "/",
-      mainMenus: getEnabledMenus(),
+      mainMenus: getAllMenuItems(),
       campaigns: {
         name: "Reward",
         href: "/rewards",

@@ -38,6 +38,10 @@ VITE_ORDERLY_NETWORK_ID=mainnet  # or testnet for testing
 # Meta tags
 VITE_APP_NAME=Your App Name
 VITE_APP_DESCRIPTION=Your app description for SEO
+
+# Navigation menu configuration (optional)
+VITE_ENABLED_MENUS=Trading,Portfolio,Markets,Leaderboard
+VITE_CUSTOM_MENUS=Documentation,https://docs.yoursite.com;Blog,https://blog.yoursite.com;Support,https://support.yoursite.com
 ```
 
 ### 2. Theme Customization
