@@ -1,5 +1,5 @@
 export function generatePageTitle(title: string) {
-  return `${title} | ${import.meta.env.VITE_BROKER_NAME}`;
+  return `${title} | ${import.meta.env.VITE_ORDERLY_BROKER_NAME}`;
 }
 
 export function formatSymbol(symbol: string, format = "base-type") {

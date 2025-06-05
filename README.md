@@ -31,8 +31,8 @@ Edit the `.env` file to set up your broker details:
 
 ```env
 # Broker settings
-VITE_BROKER_ID=your_broker_id
-VITE_BROKER_NAME=Your Broker Name
+VITE_ORDERLY_BROKER_ID=your_broker_id
+VITE_ORDERLY_BROKER_NAME=Your Broker Name
 VITE_ORDERLY_NETWORK_ID=mainnet  # or testnet for testing
 
 # Meta tags
