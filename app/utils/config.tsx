@@ -37,6 +37,7 @@ const DEFAULT_ENABLED_MENUS: MainNavItem[] = [
   { name: "Trading", href: "/" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Markets", href: "/markets" },
+  { name: "Leaderboard", href: "/leaderboard" },
 ];
 
 const getCustomMenuItems = (): MainNavItem[] => {
@@ -85,9 +86,13 @@ const getEnabledMenus = (): MainNavItem[] => {
   try {
     const enabledMenuNames = enabledMenusEnv.split(',').map(name => name.trim());
     
-    const enabledMenus = ALL_MENU_ITEMS.filter(item => 
-      enabledMenuNames.includes(item.name)
-    );
+    const enabledMenus: MainNavItem[] = [];
+    for (const menuName of enabledMenuNames) {
+      const menuItem = ALL_MENU_ITEMS.find(item => item.name === menuName);
+      if (menuItem) {
+        enabledMenus.push(menuItem);
+      }
+    }
     
     return enabledMenus.length > 0 ? enabledMenus : DEFAULT_ENABLED_MENUS;
   } catch (e) {
