@@ -108,6 +108,38 @@ const getAllMenuItems = (): MainNavItem[] => {
   return [...enabledMenus, ...customMenus];
 };
 
+const getPnLBackgroundImages = (): string[] => {
+  const useCustomPnL = import.meta.env.VITE_USE_CUSTOM_PNL_POSTERS === "true";
+  
+  if (useCustomPnL) {
+    const customPnLCount = parseInt(import.meta.env.VITE_CUSTOM_PNL_POSTER_COUNT, 10);
+    
+    if (isNaN(customPnLCount) || customPnLCount < 1) {
+      console.warn("Invalid VITE_CUSTOM_PNL_POSTER_COUNT. Using default posters.");
+      return [
+        withBasePath("/pnl/poster_bg_1.png"),
+        withBasePath("/pnl/poster_bg_2.png"),
+        withBasePath("/pnl/poster_bg_3.png"),
+        withBasePath("/pnl/poster_bg_4.png"),
+      ];
+    }
+    
+    const customPosters: string[] = [];
+    for (let i = 1; i <= customPnLCount; i++) {
+      customPosters.push(withBasePath(`/pnl/poster_bg_${i}.webp`));
+    }
+    
+    return customPosters;
+  }
+  
+  return [
+    withBasePath("/pnl/poster_bg_1.png"),
+    withBasePath("/pnl/poster_bg_2.png"),
+    withBasePath("/pnl/poster_bg_3.png"),
+    withBasePath("/pnl/poster_bg_4.png"),
+  ];
+};
+
 const config: OrderlyConfig = {
   scaffold: {
     mainNavProps: {
@@ -164,12 +196,7 @@ const config: OrderlyConfig = {
       customCssUrl: withBasePath("/tradingview/chart.css"),
     },
     sharePnLConfig: {
-      backgroundImages: [
-        withBasePath("/pnl/poster_bg_1.png"),
-        withBasePath("/pnl/poster_bg_2.png"),
-        withBasePath("/pnl/poster_bg_3.png"),
-        withBasePath("/pnl/poster_bg_4.png"),
-      ],
+      backgroundImages: getPnLBackgroundImages(),
 
       color: "rgba(255, 255, 255, 0.98)",
       profitColor: "rgba(41, 223, 169, 1)",
