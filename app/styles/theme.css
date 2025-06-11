@@ -92,3 +92,15 @@
   --oui-spacing-lg: 30rem;
   --oui-spacing-xl: 33.75rem;
 }
+
+html {
+  font-size: 15.5px;
+}
+
+.oui-font-bold {
+  font-weight: 600;
+}
+
+header >:first-child button {
+  font-weight: 500 !important;
+}
