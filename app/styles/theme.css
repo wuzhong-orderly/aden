@@ -46,9 +46,9 @@
   --oui-color-base-foreground: 255 255 255;
   --oui-color-line: 44 48 58;
 
-  --oui-color-trading-loss: 234 57 67;
+  --oui-color-trading-loss: 251 65 74;
   --oui-color-trading-loss-contrast: 255 255 255;
-  --oui-color-trading-profit: 22 163 74;
+  --oui-color-trading-profit: 29 195 90;
   --oui-color-trading-profit-contrast: 255 255 255;
 
   /* gradients */
@@ -102,5 +102,9 @@ html {
 }
 
 header >:first-child button {
+  font-weight: 500 !important;
+}
+
+.oui-order-book-list,.oui-tabular-nums {
   font-weight: 500 !important;
 }
