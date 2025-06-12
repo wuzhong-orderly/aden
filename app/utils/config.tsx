@@ -240,8 +240,8 @@ const config: OrderlyConfig = {
       brandColor: "rgba(255, 255, 255, 0.98)",
 
       // ref
-      refLink: "https://orderly.network",
-      refSlogan: "Orderly referral",
+      refLink: window.location.origin,
+      refSlogan: import.meta.env.VITE_ORDERLY_BROKER_NAME || "Orderly Network",
     },
   },
 };
