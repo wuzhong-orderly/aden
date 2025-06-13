@@ -109,3 +109,7 @@ header >:first-child button {
 .oui-order-book-list,.oui-tabular-nums {
   font-weight: 500 !important;
 }
+
+body > div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-10.oui-flex.oui-flex-col.oui-overflow-auto.oui-custom-scrollbar > div.oui-box.oui-scaffold-footer.oui-w-full.oui-bg-base-10.oui-fixed.oui-bottom-0.oui-z-50.oui-border-t-\[1px\].oui-border-line-12 > div > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-1 {
+  display: none;
+}
