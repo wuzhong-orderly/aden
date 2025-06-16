@@ -12,6 +12,7 @@ import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
   const [lang, setLang] = useState(i18n.language === "ko" ? "ko" : "en");
   const [bubblePos, setBubblePos] = useState({ x: 0, y: 0 });
   const dragging = useRef(false);
@@ -22,6 +23,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       x: window.innerWidth - 60,
       y: window.innerHeight - 60,
     });
+    setLang("en");
+    i18n.changeLanguage("en");
   }, []);
 
   const toggleLang = () => {
@@ -65,6 +68,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <OrderlyProvider>
+          {/* Hide default language switcher icon */}
+          <style>
+            {`#language-switcher-icon { display: none !important; }`}
+          </style>
           {/* Draggable Floating Language Switch Bubble */}
           <div
             id="changeLocaleButtonDiv"
