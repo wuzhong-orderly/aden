@@ -19,7 +19,6 @@ export default function TradingRewardsLayout() {
     const pathname = location.pathname;
 
     return (
-
         <TradingRewardsLayoutWidget
             {...{
                 footerProps: config.scaffold.footerProps,
