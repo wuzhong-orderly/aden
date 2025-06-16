@@ -18,8 +18,32 @@ export default function PortfolioLayout() {
     return pathname;
   }, [pathname]);
 
+  const customSideBarItems = [
+    {
+      name: "Overview",
+      href: "/portfolio"
+    },
+    {
+      name: "Positions",
+      href: "/portfolio/positions"
+    },
+    {
+      name: "Orders",
+      href: "/portfolio/orders"
+    },
+    {
+      name: "API Keys",
+      href: "/portfolio/api-key"
+    },
+    {
+      name: "Settings",
+      href: "/portfolio/setting"
+    },
+  ];
+
   return (
     <PortfolioLayoutWidget
+      items={customSideBarItems}
       footerProps={config.scaffold.footerProps}
       mainNavProps={{
         ...config.scaffold.mainNavProps,
