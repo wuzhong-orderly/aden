@@ -74,7 +74,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               left: bubblePos.x,
               transform: "translate(-50%, 0)",
               zIndex: 1000,
-              background: "rgba(255, 255, 200, 0.85)",
+              background: "rgb(253 180 29)",
               borderRadius: "999px",
               boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
               padding: "8px 20px",
@@ -82,7 +82,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               fontWeight: 500,
               fontSize: "15px",
               transition: "background 0.2s",
-              border: "1px solid #f5e9a5",
+              border: "1px solid rgb(213, 191, 65)",
               minWidth: "80px",
               textAlign: "center",
               userSelect: "none"
