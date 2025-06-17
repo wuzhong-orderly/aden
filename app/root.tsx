@@ -57,6 +57,33 @@ export function Layout({ children }: { children: React.ReactNode }) {
     document.removeEventListener("mouseup", onMouseUp);
   };
 
+  // Touch events
+  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    dragging.current = true;
+    const touch = e.touches[0];
+    offset.current = {
+      x: touch.clientX - bubblePos.x,
+      y: touch.clientY - bubblePos.y,
+    };
+    document.addEventListener("touchmove", onTouchMove);
+    document.addEventListener("touchend", onTouchEnd);
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    if (!dragging.current) return;
+    const touch = e.touches[0];
+    setBubblePos({
+      x: touch.clientX - offset.current.x,
+      y: Math.max(0, touch.clientY - offset.current.y),
+    });
+  };
+
+  const onTouchEnd = () => {
+    dragging.current = false;
+    document.removeEventListener("touchmove", onTouchMove);
+    document.removeEventListener("touchend", onTouchEnd);
+  };
+
   return (
     <html lang={lang}>
       <head>
@@ -96,6 +123,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             }}
             onClick={toggleLang}
             onMouseDown={onMouseDown}
+            onTouchStart={onTouchStart}
             title="Switch Language"
           >
             {lang === "en" ? "English" : "한국어"}
