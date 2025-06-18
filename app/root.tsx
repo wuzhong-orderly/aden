@@ -25,6 +25,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
     });
     setLang("en");
     i18n.changeLanguage("en");
+
+    // Handler for window resize
+    const handleResize = () => {
+      setBubblePos(pos => ({
+        x: Math.min(pos.x, window.innerWidth - 60),
+        y: Math.min(pos.y, window.innerHeight - 60),
+      }));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const toggleLang = () => {
@@ -83,6 +94,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     document.removeEventListener("touchmove", onTouchMove);
     document.removeEventListener("touchend", onTouchEnd);
   };
+
+
 
   return (
     <html lang={lang}>

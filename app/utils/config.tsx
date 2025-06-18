@@ -42,7 +42,7 @@ const ALL_MENU_ITEMS = [
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
   { name: "Leaderboard", href: "/leaderboard", translationKey: "tradingLeaderboard.leaderboard" },
-  { name: "Rewards", href: "/rewards", translationKey: "tradingRewards.rewards" },
+  { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
 ];
 
 // Default enabled menu items (excluding Leaderboard)
@@ -51,7 +51,7 @@ const DEFAULT_ENABLED_MENUS = [
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
   { name: "Leaderboard", href: "/leaderboard", translationKey: "tradingLeaderboard.leaderboard" },
-  { name: "Rewards", href: "/rewards", translationKey: "tradingRewards.rewards" },
+  { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
 ];
 
 const getCustomMenuItems = (): MainNavItem[] => {
@@ -216,20 +216,20 @@ export const useOrderlyConfig = () => {
             children: [
               {
                 name: t("common.tradingRewards"),
-                href: "https://app.orderly.network/tradingRewards",
+                href: "https://aden.io/",
                 description: t("extend.tradingRewards.description"),
                 icon: <OrderlyIcon size={14} />,
                 activeIcon: <OrderlyActiveIcon size={14} />,
                 target: "_blank",
               },
-              {
-                name: t("extend.staking"),
-                href: "https://app.orderly.network/staking",
-                description: t("extend.staking.description"),
-                icon: <OrderlyIcon size={14} />,
-                activeIcon: <OrderlyActiveIcon size={14} />,
-                target: "_blank",
-              },
+              // {
+              //   name: t("extend.staking"),
+              //   href: "https://app.orderly.network/staking",
+              //   description: t("extend.staking.description"),
+              //   icon: <OrderlyIcon size={14} />,
+              //   activeIcon: <OrderlyActiveIcon size={14} />,
+              //   target: "_blank",
+              // },
             ],
           },
         },
@@ -247,11 +247,34 @@ export const useOrderlyConfig = () => {
         appIcons: {
           main:
             import.meta.env.VITE_HAS_PRIMARY_LOGO === "true"
-              ? { component: <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} /> }
+              ? {
+                component: (
+                  <a
+                    href="https://Aden.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-block" }}
+                  >
+                    <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
+                  </a>
+                )
+              }
               : { img: withBasePath("/orderly-logo.svg") },
           secondary: {
             img: import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
-              ? withBasePath("/logo-secondary.webp")
+              ? {
+
+                component: (
+                  <a
+                    href="https://Aden.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ display: "inline-block" }}
+                  >
+                    <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
+                  </a>
+                )
+              }
               : withBasePath("/orderly-logo-secondary.svg"),
           },
         },
