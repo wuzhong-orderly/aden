@@ -20,7 +20,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setBubblePos({
-      x: window.innerWidth - 60,
+      x: window.innerWidth - 90,
       y: window.innerHeight - 60,
     });
     setLang("en");
@@ -29,8 +29,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     // Handler for window resize
     const handleResize = () => {
       setBubblePos(pos => ({
-        x: Math.min(pos.x, window.innerWidth - 60),
-        y: Math.min(pos.y, window.innerHeight - 60),
+        x: window.innerWidth - 90,
+        y: window.innerHeight - 60,
       }));
     };
 
@@ -105,6 +105,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <link rel="icon" type="image/webp" href={withBasePath("/favicon.webp")} />
         <Meta />
         <Links />
+        {/* SEO: Dynamic title and meta tags */}
+        <title>
+          {lang === "ko"
+            ? "DeFi: DEX 거래소 아덴"
+            : "ADEN - DeFi Crypto Futures Trading Platform"}
+        </title>
+        <meta
+          name="description"
+          content={
+            lang === "ko"
+              ? "아덴 거래소(ADEN): 탈중앙화 거래소(DEX)에서 암호화폐 선물거래를 경험하세요. 아덴, 거래소, 덱스 거래소, DeFi, 암호화폐, 선물거래"
+              : "Aden Exchange (ADEN): Experience DeFi crypto futures trading on a decentralized exchange (DEX). Aden, Exchange, DEX Exchange, DeFi, Crypto, Futures Trading"
+          }
+        />
+        <meta
+          name="keywords"
+          content={
+            lang === "ko"
+              ? "아덴 거래소, 아덴, 탈중앙화 거래소, 거래소, 덱스 거래소, DEX, DeFi, 암호화폐, 선물거래"
+              : "Aden Exchange, Aden, Decentralized Exchange, Exchange, DEX Exchange, DEX, DeFi, Crypto, Futures Trading"
+          }
+        />
+        <meta property="og:title" content={lang === "ko" ? "DeFi: DEX 거래소 아덴" : "ADEN - DeFi Crypto Futures Trading Platform"} />
+        <meta property="og:description" content={
+          lang === "ko"
+            ? "아덴 거래소(ADEN): 탈중앙화 거래소(DEX)에서 암호화폐 선물거래를 경험하세요."
+            : "Aden Exchange (ADEN): Experience DeFi crypto futures trading on a decentralized exchange (DEX)."
+        } />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://aden.io/" />
+        <meta property="og:image" content={withBasePath("/logo.webp")} />
       </head>
       <body>
         <OrderlyProvider>
@@ -139,7 +170,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             onTouchStart={onTouchStart}
             title="Switch Language"
           >
-            {lang === "en" ? "English" : "한국어"}
+            {lang === "en" ? "한국어" : "English"}
           </div>
           {children}
         </OrderlyProvider>
