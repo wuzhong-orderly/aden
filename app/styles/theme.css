@@ -136,3 +136,9 @@ body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-
 body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-10.oui-flex.oui-flex-col.oui-overflow-auto.oui-custom-scrollbar>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-3.\32 xl\:oui-gap-4.oui-overflow-hidden>a>img {
   max-width: none;
 }
+
+@media (max-width: 980px) {
+  body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-10.oui-flex.oui-flex-col.oui-overflow-auto.oui-custom-scrollbar>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div:nth-child(2)>div:nth-child(1) {
+    display: none;
+  }
+}
