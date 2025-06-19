@@ -131,3 +131,8 @@ body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-
 #oui-affiliate-affiliate-summary>div.oui-box.oui-px-6.oui-py-4.oui-rounded-xl.oui-gradient-primary.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-3.oui-max-h-\[104px\]>span {
   color: #404144;
 }
+
+/* This prevents logo from auto scaling and shrinking */
+body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-10.oui-flex.oui-flex-col.oui-overflow-auto.oui-custom-scrollbar>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-3.\32 xl\:oui-gap-4.oui-overflow-hidden>a>img {
+  max-width: none;
+}
