@@ -139,10 +139,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <OrderlyProvider>
-          {/* Hide default language switcher icon */}
-          <style>
-            {`#language-switcher-icon { display: none !important; }`}
-          </style>
           {/* Draggable Floating Language Switch Bubble */}
           <div
             id="changeLocaleButtonDiv"

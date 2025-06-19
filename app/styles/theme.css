@@ -143,3 +143,8 @@ body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-
     display: none;
   }
 }
+
+/* Hide language switcher-icon */
+#language-switcher-icon {
+  display: none !important;
+}

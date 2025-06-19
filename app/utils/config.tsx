@@ -56,7 +56,6 @@ const DEFAULT_ENABLED_MENUS = [
 
 const getCustomMenuItems = (): MainNavItem[] => {
   const customMenusEnv = import.meta.env.VITE_CUSTOM_MENUS;
-  console.log("Custom menus from env:", customMenusEnv);
   if (!customMenusEnv || typeof customMenusEnv !== 'string' || customMenusEnv.trim() === '') {
     return [];
   }
@@ -65,7 +64,6 @@ const getCustomMenuItems = (): MainNavItem[] => {
     // Parse delimiter-separated menu items
     // Expected format: "Documentation,https://docs.example.com;Blog,https://blog.example.com;Support,https://support.example.com"
     const menuPairs = customMenusEnv.split(';').map(pair => pair.trim()).filter(pair => pair.length > 0);
-    console.log("Custom menus from env:", menuPairs);
     const validCustomMenus: MainNavItem[] = [];
 
     for (const pair of menuPairs) {
@@ -188,6 +186,7 @@ export const useOrderlyConfig = () => {
     const translatedEnabledMenus = enabledMenus.map(menu => ({
       name: t(menu.translationKey),
       href: menu.href,
+      isHomePageInMobile: true
     }));
 
     const allMenuItems = [...translatedEnabledMenus, ...customMenus];
@@ -260,10 +259,9 @@ export const useOrderlyConfig = () => {
                 )
               }
               : { img: withBasePath("/orderly-logo.svg") },
-          secondary: {
-            img: import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
+          secondary:
+            import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
               ? {
-
                 component: (
                   <a
                     href="https://Aden.io"
@@ -275,8 +273,7 @@ export const useOrderlyConfig = () => {
                   </a>
                 )
               }
-              : withBasePath("/orderly-logo-secondary.svg"),
-          },
+              : { img: withBasePath("/orderly-log-secondaryo.svg") },
         },
       },
       tradingPage: {
