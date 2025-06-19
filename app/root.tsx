@@ -163,7 +163,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
               border: "1px solid rgb(213, 191, 65)",
               minWidth: "80px",
               textAlign: "center",
-              userSelect: "none"
+              userSelect: "none",
+              color: "black"
             }}
             onClick={toggleLang}
             onMouseDown={onMouseDown}

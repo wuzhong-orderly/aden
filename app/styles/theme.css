@@ -137,6 +137,7 @@ body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-
   max-width: none;
 }
 
+/* Hides top right rewards button when screen width is shrinked to a certain threshold so it doesn't block the tabs*/
 @media (max-width: 980px) {
   body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-10.oui-flex.oui-flex-col.oui-overflow-auto.oui-custom-scrollbar>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div:nth-child(2)>div:nth-child(1) {
     display: none;
