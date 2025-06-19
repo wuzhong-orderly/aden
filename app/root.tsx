@@ -21,7 +21,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setBubblePos({
       x: window.innerWidth - 90,
-      y: window.innerHeight - 60,
+      y: window.innerHeight - 110,
     });
     setLang("en");
     i18n.changeLanguage("en");
@@ -30,7 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     const handleResize = () => {
       setBubblePos(pos => ({
         x: window.innerWidth - 90,
-        y: window.innerHeight - 60,
+        y: window.innerHeight - 110,
       }));
     };
 
