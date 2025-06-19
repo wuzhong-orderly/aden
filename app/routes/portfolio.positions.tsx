@@ -9,9 +9,9 @@ import { updateSymbol } from "@/utils/storage";
 import { generatePageTitle } from "@/utils/utils";
 import { useOrderlyConfig } from "@/utils/config";
 
-export const meta: MetaFunction = () => {
-  return [{ title: generatePageTitle("Positions") }];
-};
+// export const meta: MetaFunction = () => {
+//   return [{ title: generatePageTitle("Positions") }];
+// };
 
 export default function PositionsPage() {
   const config = useOrderlyConfig();
@@ -23,10 +23,10 @@ export default function PositionsPage() {
     (data: API.Symbol) => {
       const symbol = data.symbol;
       updateSymbol(symbol);
-      
+
       const searchParamsString = searchParams.toString();
       const queryString = searchParamsString ? `?${searchParamsString}` : '';
-      
+
       navigate(`/perp/${symbol}${queryString}`);
     },
     [navigate, searchParams]

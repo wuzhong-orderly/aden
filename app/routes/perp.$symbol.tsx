@@ -7,9 +7,9 @@ import { updateSymbol } from "@/utils/storage";
 import { formatSymbol, generatePageTitle } from "@/utils/utils";
 import { useOrderlyConfig } from "@/utils/config";
 
-export const meta: MetaFunction = ({ params }) => {
-  return [{ title: generatePageTitle(formatSymbol(params.symbol!)) }];
-};
+// export const meta: MetaFunction = ({ params }) => {
+//   return [{ title: generatePageTitle(formatSymbol(params.symbol!)) }];
+// };
 
 export default function PerpPage() {
   const params = useParams();
@@ -26,10 +26,10 @@ export default function PerpPage() {
     (data: API.Symbol) => {
       const symbol = data.symbol;
       setSymbol(symbol);
-      
+
       const searchParamsString = searchParams.toString();
       const queryString = searchParamsString ? `?${searchParamsString}` : '';
-      
+
       navigate(`/perp/${symbol}${queryString}`);
     },
     [navigate, searchParams]

@@ -3,12 +3,12 @@ import { useNavigate, useSearchParams } from "@remix-run/react";
 import { useEffect } from "react";
 import { DEFAULT_SYMBOL } from "@/utils/storage";
 
-export const meta: MetaFunction = () => {
-  return [
-    { title: import.meta.env.VITE_APP_NAME },
-    { name: "description", content: import.meta.env.VITE_APP_DESCRIPTION },
-  ];
-};
+// export const meta: MetaFunction = () => {
+//   return [
+//     { title: import.meta.env.VITE_APP_NAME },
+//     { name: "description", content: import.meta.env.VITE_APP_DESCRIPTION },
+//   ];
+// };
 
 export default function Index() {
   const navigate = useNavigate();

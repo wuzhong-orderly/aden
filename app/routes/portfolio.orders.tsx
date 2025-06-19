@@ -3,9 +3,9 @@ import { Box } from "@orderly.network/ui";
 import { OrdersModule } from "@orderly.network/portfolio";
 import { generatePageTitle } from "@/utils/utils";
 
-export const meta: MetaFunction = () => {
-  return [{ title: generatePageTitle("Orders") }];
-};
+// export const meta: MetaFunction = () => {
+//   return [{ title: generatePageTitle("Orders") }];
+// };
 
 export default function OrdersPage() {
   return (

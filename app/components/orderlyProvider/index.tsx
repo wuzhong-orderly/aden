@@ -8,18 +8,18 @@ const NETWORK_ID_KEY = "orderly_network_id";
 
 const getNetworkId = (): NetworkId => {
 	if (typeof window === "undefined") return "mainnet";
-	
+
 	const disableMainnet = import.meta.env.VITE_DISABLE_MAINNET === 'true';
 	const disableTestnet = import.meta.env.VITE_DISABLE_TESTNET === 'true';
-	
+
 	if (disableMainnet && !disableTestnet) {
 		return "testnet";
 	}
-	
+
 	if (disableTestnet && !disableMainnet) {
 		return "mainnet";
 	}
-	
+
 	return (localStorage.getItem(NETWORK_ID_KEY) as NetworkId) || "mainnet";
 };
 
@@ -34,7 +34,7 @@ const WalletConnector = lazy(() => import("@/components/orderlyProvider/walletCo
 
 const LocaleProviderWithLanguages = lazy(async () => {
 	const languageCodes = import.meta.env.VITE_AVAILABLE_LANGUAGES?.split(',') || ['en'];
-	
+
 	const languagePromises = languageCodes.map(async (code: string) => {
 		const trimmedCode = code.trim();
 		try {
@@ -49,9 +49,9 @@ const LocaleProviderWithLanguages = lazy(async () => {
 			return null;
 		}
 	});
-	
+
 	const results = await Promise.all(languagePromises);
-	
+
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const resources: Resources<any> = {};
 	results.forEach(result => {
@@ -59,8 +59,8 @@ const LocaleProviderWithLanguages = lazy(async () => {
 			resources[result.code] = result.data;
 		}
 	});
-	
-	const languages = defaultLanguages.filter(lang => 
+
+	const languages = defaultLanguages.filter(lang =>
 		languageCodes.some((code: string) => code.trim() === lang.localCode)
 	);
 
@@ -114,11 +114,11 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 	const config = useOrderlyConfig();
 	const networkId = getNetworkId();
 	const [isClient, setIsClient] = useState(false);
-	
+
 	const privyAppId = import.meta.env.VITE_PRIVY_APP_ID;
 	const usePrivy = !!privyAppId;
 
-	const parseChainIds = (envVar: string | undefined): Array<{id: number}> | undefined => {
+	const parseChainIds = (envVar: string | undefined): Array<{ id: number }> | undefined => {
 		if (!envVar) return undefined;
 		return envVar.split(',')
 			.map(id => id.trim())
@@ -142,12 +142,12 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 	}, []);
 
 	const onChainChanged = useCallback(
-		(_chainId: number, {isTestnet}: {isTestnet: boolean}) => {
+		(_chainId: number, { isTestnet }: { isTestnet: boolean }) => {
 			const currentNetworkId = getNetworkId();
 			if ((isTestnet && currentNetworkId === 'mainnet') || (!isTestnet && currentNetworkId === 'testnet')) {
 				const newNetworkId: NetworkId = isTestnet ? 'testnet' : 'mainnet';
 				setNetworkId(newNetworkId);
-				
+
 				setTimeout(() => {
 					window.location.reload();
 				}, 100);
