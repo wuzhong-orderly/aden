@@ -217,9 +217,9 @@ export const useOrderlyConfig = () => {
               {
                 name: t("common.tradingRewards"),
                 href: "https://aden.io/",
-                description: t("extend.tradingRewards.description"),
-                icon: <OrderlyIcon size={14} />,
-                activeIcon: <OrderlyActiveIcon size={14} />,
+                // description: t("extend.tradingRewards.description"),
+                // icon: <OrderlyIcon size={14} />,
+                // activeIcon: <OrderlyActiveIcon size={14} />,
                 target: "_blank",
               },
               // {
