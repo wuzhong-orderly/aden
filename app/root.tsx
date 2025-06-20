@@ -27,10 +27,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
 
-    let savedLang = localStorage.getItem("lang");
-    console.log(`Language set from localStorage: ${savedLang}`);
-    console.log(`Language set from localStorage: ${savedLang}`);
-
     setStorageChain(defaultChainId);
     setCurrentChainId(defaultChainId);
 
@@ -39,11 +35,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
       y: window.innerHeight - 110,
     });
 
+    let savedLang = localStorage.getItem("lang");
     if (savedLang) {
+      console.log("Setting language from localStorage:", savedLang);
       setLang(savedLang);
       i18n.changeLanguage(savedLang);
       localStorage.removeItem("lang");
     } else {
+      console.log("Setting default language to 'en'");
       setLang("en");
       i18n.changeLanguage("en");
     }
