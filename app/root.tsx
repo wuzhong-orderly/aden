@@ -27,6 +27,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
 
+    let savedLang = localStorage.getItem("lang");
+    console.log(`Language set from localStorage: ${savedLang}`);
+    console.log(`Language set from localStorage: ${savedLang}`);
+
     setStorageChain(defaultChainId);
     setCurrentChainId(defaultChainId);
 
@@ -34,8 +38,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       x: window.innerWidth - 90,
       y: window.innerHeight - 110,
     });
-    setLang("en");
-    i18n.changeLanguage("en");
+
+    if (savedLang) {
+      setLang(savedLang);
+      i18n.changeLanguage(savedLang);
+      localStorage.removeItem("lang");
+    } else {
+      setLang("en");
+      i18n.changeLanguage("en");
+    }
 
     // Handler for window resize
     const handleResize = () => {
@@ -49,10 +60,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
   const toggleLang = () => {
     const nextLang = lang === "en" ? "ko" : "en";
-    i18n.changeLanguage(nextLang);
-    setLang(nextLang);
+    localStorage.setItem("lang", nextLang);
+    window.location.reload();
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
