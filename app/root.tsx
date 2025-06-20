@@ -10,6 +10,8 @@ import { useState, useRef, useEffect } from "react";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
+import { useAppContext } from "@orderly.network/react-app";
+import { useStorageChain } from "@orderly.network/hooks";
 
 export function Layout({ children }: { children: React.ReactNode }) {
 
@@ -18,7 +20,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const dragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
 
+  const { currentChainId, setCurrentChainId } =
+    useAppContext();
+  const { setStorageChain } = useStorageChain();
+  const defaultChainId = Number(import.meta.env.VITE_DEFAULT_CHAIN_ID);
+
   useEffect(() => {
+
+    setStorageChain(defaultChainId);
+    setCurrentChainId(defaultChainId);
+
     setBubblePos({
       x: window.innerWidth - 90,
       y: window.innerHeight - 110,
@@ -94,8 +105,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
     document.removeEventListener("touchmove", onTouchMove);
     document.removeEventListener("touchend", onTouchEnd);
   };
-
-
 
   return (
     <html lang={lang}>
