@@ -39,6 +39,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
       if (targetDiv && !document.getElementById("changeLocaleButtonDiv")) {
         const newElem = document.createElement("div");
+        newElem.style.cursor = "pointer";
         newElem.id = "changeLocaleButtonDiv";
         newElem.textContent = (lang === "en" ? "한국어" : "English");
         newElem.onclick = () => {
