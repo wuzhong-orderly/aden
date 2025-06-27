@@ -6,17 +6,13 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import OrderlyProvider from "@/components/orderlyProvider";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
-import { useAppContext } from "@orderly.network/react-app";
 import { useStorageChain } from "@orderly.network/hooks";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-
-  const { currentChainId, setCurrentChainId } =
-    useAppContext();
   const { setStorageChain } = useStorageChain();
   const defaultChainId = Number(import.meta.env.VITE_DEFAULT_CHAIN_ID);
   const getInitialLang = () => {
@@ -33,7 +29,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 
     setStorageChain(defaultChainId);
-    setCurrentChainId(defaultChainId);
 
     // Appending language button in header
     const desktopDivSelector = "body > div.oui-scaffold-root.oui-font-semibold.oui-bg-base-10.oui-text-base-contrast.oui-flex.oui-flex-col.oui-custom-scrollbar.oui-overflow-auto > div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9 > header > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-2";
@@ -41,7 +36,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 
     function insertLocaleButton() {
-      var targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
+      const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
       if (targetDiv && !document.getElementById("changeLocaleButtonDiv")) {
         const newElem = document.createElement("div");
         newElem.id = "changeLocaleButtonDiv";
@@ -69,7 +64,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     window.addEventListener("resize", insertLocaleButton);
 
     // set the language
-    let savedLang = localStorage.getItem("lang");
+    const savedLang = localStorage.getItem("lang");
     console.log(`Language set from localStorage: ${savedLang}`);
     // If a language is saved in localStorage, use it; otherwise default to "en"
     if (savedLang) {
