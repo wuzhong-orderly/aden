@@ -15,32 +15,22 @@ import { useStorageChain } from "@orderly.network/hooks";
 
 export function Layout({ children }: { children: React.ReactNode }) {
 
-  const [lang, setLang] = useState(i18n.language === "ko" ? "ko" : "en");
-  const [bubblePos, setBubblePos] = useState({ x: 0, y: 0 });
-  const dragging = useRef(false);
-  const offset = useRef({ x: 0, y: 0 });
-
   const { currentChainId, setCurrentChainId } =
     useAppContext();
   const { setStorageChain } = useStorageChain();
   const defaultChainId = Number(import.meta.env.VITE_DEFAULT_CHAIN_ID);
-
-  function getBubblePos() {
-    const width = window.innerWidth;
-    if (width >= 1180) {
-      return { x: window.innerWidth - 380, y: 12 };
-    } else if (width >= 980) {
-      return { x: window.innerWidth - 260, y: 12 };
-    } else if (width > 860) {
-      return { x: window.innerWidth - 230, y: 12 };
-    } else if (width > 768) {
-      return { x: window.innerWidth - 210, y: 36 };
-    } else {
-      return { x: window.innerWidth - 240, y: 9 };
+  const getInitialLang = () => {
+    if (typeof window !== "undefined") {
+      const savedLang = localStorage.getItem("lang");
+      if (savedLang) return savedLang;
     }
-  }
+    return i18n.language === "ko" ? "ko" : "en";
+  };
+
+  const [lang, setLang] = useState(getInitialLang());
 
   useEffect(() => {
+
 
     setStorageChain(defaultChainId);
     setCurrentChainId(defaultChainId);
