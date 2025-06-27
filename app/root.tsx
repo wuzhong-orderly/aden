@@ -25,20 +25,63 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const { setStorageChain } = useStorageChain();
   const defaultChainId = Number(import.meta.env.VITE_DEFAULT_CHAIN_ID);
 
-  useEffect(() => {
+  function getBubblePos() {
+    const width = window.innerWidth;
+    if (width >= 1180) {
+      return { x: window.innerWidth - 380, y: 12 };
+    } else if (width >= 980) {
+      return { x: window.innerWidth - 260, y: 12 };
+    } else if (width > 860) {
+      return { x: window.innerWidth - 230, y: 12 };
+    } else if (width > 768) {
+      return { x: window.innerWidth - 210, y: 36 };
+    } else {
+      return { x: window.innerWidth - 240, y: 9 };
+    }
+  }
 
-    let savedLang = localStorage.getItem("lang");
-    console.log(`Language set from localStorage: ${savedLang}`);
-    console.log(`Language set from localStorage: ${savedLang}`);
+  useEffect(() => {
 
     setStorageChain(defaultChainId);
     setCurrentChainId(defaultChainId);
 
-    setBubblePos({
-      x: window.innerWidth - 90,
-      y: window.innerHeight - 110,
-    });
+    // Appending language button in header
+    const desktopDivSelector = "body > div.oui-scaffold-root.oui-font-semibold.oui-bg-base-10.oui-text-base-contrast.oui-flex.oui-flex-col.oui-custom-scrollbar.oui-overflow-auto > div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9 > header > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-2";
+    const mobileDivSelector = "body > div.oui-scaffold-root.oui-w-full.oui-overflow-hidden.oui-bg-base-10 > header > div > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-x-2";
 
+
+    function insertLocaleButton() {
+      var targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
+      if (targetDiv && !document.getElementById("changeLocaleButtonDiv")) {
+        const newElem = document.createElement("div");
+        newElem.id = "changeLocaleButtonDiv";
+        newElem.textContent = (lang === "en" ? "한국어" : "English");
+        newElem.onclick = () => {
+          const nextLang = lang === "en" ? "ko" : "en";
+          localStorage.setItem("lang", nextLang);
+          window.location.reload();
+        };
+        targetDiv.insertBefore(newElem, targetDiv.firstChild);
+      }
+    }
+
+    // Initial insert
+    function tryFind() {
+      const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
+      if (targetDiv) {
+        insertLocaleButton();
+      } else {
+        setTimeout(tryFind, 500);
+      }
+    }
+    tryFind();
+
+    window.addEventListener("resize", insertLocaleButton);
+
+    // set the language
+    let savedLang = localStorage.getItem("lang");
+    console.log(`Language set from localStorage: ${savedLang}`);
+    // If a language is saved in localStorage, use it; otherwise default to "en"
     if (savedLang) {
       setLang(savedLang);
       i18n.changeLanguage(savedLang);
@@ -48,75 +91,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       i18n.changeLanguage("en");
     }
 
-    // Handler for window resize
-    const handleResize = () => {
-      setBubblePos(pos => ({
-        x: window.innerWidth - 90,
-        y: window.innerHeight - 110,
-      }));
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", insertLocaleButton);
     };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-
-  const toggleLang = () => {
-    const nextLang = lang === "en" ? "ko" : "en";
-    localStorage.setItem("lang", nextLang);
-    window.location.reload();
-  };
-
-  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    dragging.current = true;
-    offset.current = {
-      x: e.clientX - bubblePos.x,
-      y: e.clientY - bubblePos.y,
-    };
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
-  };
-
-  const onMouseMove = (e: MouseEvent) => {
-    if (!dragging.current) return;
-    setBubblePos({
-      x: e.clientX - offset.current.x,
-      y: Math.max(0, e.clientY - offset.current.y),
-    });
-  };
-
-  const onMouseUp = () => {
-    dragging.current = false;
-    document.removeEventListener("mousemove", onMouseMove);
-    document.removeEventListener("mouseup", onMouseUp);
-  };
-
-  // Touch events
-  const onTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    dragging.current = true;
-    const touch = e.touches[0];
-    offset.current = {
-      x: touch.clientX - bubblePos.x,
-      y: touch.clientY - bubblePos.y,
-    };
-    document.addEventListener("touchmove", onTouchMove);
-    document.addEventListener("touchend", onTouchEnd);
-  };
-
-  const onTouchMove = (e: TouchEvent) => {
-    if (!dragging.current) return;
-    const touch = e.touches[0];
-    setBubblePos({
-      x: touch.clientX - offset.current.x,
-      y: Math.max(0, touch.clientY - offset.current.y),
-    });
-  };
-
-  const onTouchEnd = () => {
-    dragging.current = false;
-    document.removeEventListener("touchmove", onTouchMove);
-    document.removeEventListener("touchend", onTouchEnd);
-  };
 
   return (
     <html lang={lang}>
@@ -160,36 +139,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <OrderlyProvider>
-          {/* Draggable Floating Language Switch Bubble */}
-          <div
-            id="changeLocaleButtonDiv"
-            style={{
-              position: "fixed",
-              top: bubblePos.y,
-              left: bubblePos.x,
-              transform: "translate(-50%, 0)",
-              zIndex: 1000,
-              background: "rgb(253 180 29)",
-              borderRadius: "999px",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              padding: "8px 20px",
-              cursor: "grab",
-              fontWeight: 500,
-              fontSize: "15px",
-              transition: "background 0.2s",
-              border: "1px solid rgb(213, 191, 65)",
-              minWidth: "80px",
-              textAlign: "center",
-              userSelect: "none",
-              color: "black"
-            }}
-            onClick={toggleLang}
-            onMouseDown={onMouseDown}
-            onTouchStart={onTouchStart}
-            title="Switch Language"
-          >
-            {lang === "en" ? "한국어" : "English"}
-          </div>
           {children}
         </OrderlyProvider>
         <ScrollRestoration />
