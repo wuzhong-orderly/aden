@@ -5,7 +5,8 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
-import { MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, LeaderboardInactiveIcon, useScreen } from "@orderly.network/ui";
+import { AffiliateIcon, MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, LeaderboardInactiveIcon, useScreen } from "@orderly.network/ui";
+import { Gamepad2 } from "lucide-react";
 
 interface MainNavItem {
   name: string;
@@ -51,6 +52,7 @@ const DEFAULT_ENABLED_MENUS = [
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
   { name: "Leaderboard", href: "/leaderboard", translationKey: "tradingLeaderboard.leaderboard" },
+    { name: "Community", href: "/demo_trading/BTCUSDT", translationKey: "common.demo_trading" },
   // { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
 ];
 
@@ -152,12 +154,14 @@ const getBottomNavIcon = (menuName: string) => {
       return { activeIcon: <TradingActiveIcon />, inactiveIcon: <TradingInactiveIcon /> };
     case "Portfolio":
       return { activeIcon: <PortfolioActiveIcon />, inactiveIcon: <PortfolioInactiveIcon /> };
-    case "Leaderboard":
-      return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardInactiveIcon /> };
     case "Markets":
       return { activeIcon: <MarketsActiveIcon />, inactiveIcon: <MarketsInactiveIcon /> };
+    // case "Leaderboard":
+    //   return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardInactiveIcon /> };
     // case "Referral":
     //   return { activeIcon: <AffiliateIcon />, inactiveIcon: <AffiliateIcon /> };
+    case "Demo":
+      return { activeIcon: <Gamepad2 className="oui-text-[#FFB018]" />, inactiveIcon: <Gamepad2 className="oui-text-base-contrast-54" /> };
     default:
       throw new Error(`Unsupported menu name: ${menuName}`);
   }
@@ -195,9 +199,14 @@ export const useOrderlyConfig = () => {
 
     const allMenuItems = [...translatedEnabledMenus, ...customMenus];
 
-    const supportedBottomNavMenus = ["Trading", "Portfolio", "Markets", "Leaderboard", "Referral"];
-    const bottomNavMenus = enabledMenus
-      .filter(menu => supportedBottomNavMenus.includes(menu.name))
+    // Mobile-only bottom nav items
+    const mobileOnlyBottomNavItems = [
+      { name: "Demo", href: "/demo_trading/BTCUSDT", translationKey: "common.demo_trading" }
+    ];
+
+    const supportedBottomNavMenus = ["Trading", "Portfolio", "Markets", "Demo"];
+    const standardBottomNavMenus = enabledMenus
+      .filter(menu => supportedBottomNavMenus.includes(menu.name) && menu.name !== "Demo")
       .map(menu => {
         const icons = getBottomNavIcon(menu.name);
         return {
@@ -208,11 +217,50 @@ export const useOrderlyConfig = () => {
       })
       .filter(menu => menu.activeIcon && menu.inactiveIcon);
 
+    const mobileBottomNavMenus = mobileOnlyBottomNavItems
+      .map(menu => {
+        const icons = getBottomNavIcon(menu.name);
+        return {
+          name: t(menu.translationKey),
+          href: menu.href,
+          ...icons
+        };
+      })
+      .filter(menu => menu.activeIcon && menu.inactiveIcon);
+
+    const bottomNavMenus = [...standardBottomNavMenus, ...mobileBottomNavMenus];
+
     return {
       scaffold: {
         mainNavProps: {
           initialMenu: "/",
           mainMenus: allMenuItems,
+          // campaigns: {
+          //   name: t("tradingRewards.rewards"),
+          //   href: "/rewards",
+          //   children: [
+          //     {
+          //       name: t("common.tradingRewards"),
+          //       href: "https://aden.io/",
+          //       // description: t("extend.tradingRewards.description"),
+          //       // icon: <OrderlyIcon size={14} />,
+          //       // activeIcon: <OrderlyActiveIcon size={14} />,
+          //       target: "_blank",
+          //     },
+          //     // {
+          //     //   name: t("common.demo_trading"),
+          //     //   href: "/guide/guide1",
+          //     // },
+          //     // {
+          //     //   name: t("extend.staking"),
+          //     //   href: "https://app.orderly.network/staking",
+          //     //   description: t("extend.staking.description"),
+          //     //   icon: <OrderlyIcon size={14} />,
+          //     //   activeIcon: <OrderlyActiveIcon size={14} />,
+          //     //   target: "_blank",
+          //     // },
+          //   ],
+          // },
         },
         bottomNavProps: {
           mainMenus: bottomNavMenus,

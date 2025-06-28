@@ -19,6 +19,10 @@ export default defineConfig(() => {
 
   return {
     base: basePath,
+    server: {
+      port: 9001,
+      allowedHosts: ["aden.io", ".aden.io","godd.app", "*"]
+    },
     ssr: {
       noExternal,
       external: ["@privy-io/cross-app-connect/rainbow-kit"],
@@ -26,7 +30,7 @@ export default defineConfig(() => {
     plugins: [
       remix({
         basename: basePath,
-        ssr: false,
+        ssr: true,
         future: {
           v3_fetcherPersist: true,
           v3_relativeSplatPath: true,
