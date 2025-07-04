@@ -1,22 +1,14 @@
-import { Dashboard, ReferralProvider } from "@orderly.network/affiliate";
-import { FC, ReactNode } from "react";
-import { Outlet, useLocation } from "@remix-run/react";
-import { useMemo } from "react";
+import { Dashboard } from "@orderly.network/affiliate";
+import { Outlet } from "@remix-run/react";
 import {
     TradingRewardsLayoutWidget,
-    TradingRewardsLeftSidebarPath,
 } from "@orderly.network/trading-rewards";
 import { useOrderlyConfig } from "@/utils/config";
 import { useNav } from "@/hooks/useNav";
 
-type TradingRewardsLayoutProps = {
-    children: ReactNode;
-    currentPath?: TradingRewardsLeftSidebarPath;
-};
 export default function TradingRewardsLayout() {
     const { onRouteChange } = useNav();
     const config = useOrderlyConfig();
-    const pathname = location.pathname;
 
     return (
         <TradingRewardsLayoutWidget
@@ -28,11 +20,11 @@ export default function TradingRewardsLayout() {
                 },
                 routerAdapter: { onRouteChange },
                 hideSideBar: true,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             } as any}
         >
             <Dashboard.AffiliatePage />
             <Outlet />
-        </TradingRewardsLayoutWidget >
+        </TradingRewardsLayoutWidget>
     )
-
 }
