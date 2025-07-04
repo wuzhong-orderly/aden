@@ -7,6 +7,7 @@ import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
 import { MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, useScreen } from "@orderly.network/ui";
 import { Gamepad2 } from "lucide-react";
+import LanguageToggle from "@/components/LanguageToggle";
 
 interface MainNavItem {
   name: string;
@@ -261,6 +262,31 @@ export const useOrderlyConfig = () => {
           //     // },
           //   ],
           // },
+          customRender: (components) => {
+            return isMobile ? (
+              <>
+                {components.title}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <LanguageToggle />
+                  {components.scanQRCode}
+                  {components.subAccount}
+                  {components.linkDevice}
+                  {components.chainMenu}
+                </div>
+              </>
+            ) : (
+              <>
+                {components.title}
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <LanguageToggle />
+                  {/* {components.scanQRCode} */}
+                  {components.subAccount}
+                  {components.linkDevice}
+                  {components.chainMenu}
+                </div>
+              </>
+            );
+          },
         },
         bottomNavProps: {
           mainMenus: bottomNavMenus,

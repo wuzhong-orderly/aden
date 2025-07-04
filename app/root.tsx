@@ -69,92 +69,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 
   useEffect(() => {
-    // Appending language button in header
-    const desktopDivSelector = "body > div.oui-scaffold-root> div.oui-box > header > div:nth-child(2)";
-    const mobileDivSelector = "body > div.oui-scaffold-root > header > div > div:nth-child(2)";
-    const mobileDivSelector2 = "body > div.oui-box > header > div > div:nth-child(2)"
-
-    function insertLocaleButton() {
-      // Remove existing button first to prevent duplicates
-      const existingButton = document.getElementById("changeLocaleButtonDiv");
-      if (existingButton) {
-        existingButton.remove();
-      }
-
-      const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector) || document.querySelector(mobileDivSelector2);
-      if (targetDiv) {
-        const newElem = document.createElement("div");
-        newElem.style.cursor = "pointer";
-        newElem.id = "changeLocaleButtonDiv";
-        newElem.textContent = (lang === "en" ? "한국어" : "English");
-        newElem.onclick = () => {
-          const nextLang = lang === "en" ? "ko" : "en";
-          localStorage.setItem("lang", nextLang);
-          window.location.reload();
-        };
-        targetDiv.insertBefore(newElem, targetDiv.firstChild);
-        return true;
-      }
-      return false;
-    }
-
-    // Enhanced retry logic with multiple attempts
-    function tryFind(retryCount = 0) {
-      const maxRetries = 10;
-      if (insertLocaleButton()) {
-        return;
-      }
-
-      if (retryCount < maxRetries) {
-        const delay = Math.min(500 * Math.pow(1.5, retryCount), 3000); // Exponential backoff, max 3s
-        setTimeout(() => tryFind(retryCount + 1), delay);
-      } else {
-        console.warn("Failed to insert language button after maximum retries");
-      }
-    }
-
-    // Observe DOM changes to detect when new content is loaded
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          // Check if any new nodes contain our target elements
-          const hasRelevantChanges = Array.from(mutation.addedNodes).some(node => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              const element = node as Element;
-              return element.querySelector('.oui-scaffold-topNavbar') ||
-                element.classList.contains('oui-scaffold-topNavbar') ||
-                element.querySelector('header') ||
-                element.tagName === 'HEADER';
-            }
-            return false;
-          });
-
-          if (hasRelevantChanges && !document.getElementById("changeLocaleButtonDiv")) {
-            setTimeout(() => tryFind(), 100);
-          }
-        }
-      });
-    });
-
-    // Start observing
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-    // Initial insertion with multiple strategies
-
-    // Strategy 1: Immediate attempt
-    tryFind();
-
-    // Strategy 2: Short delay for SPA navigation
-    const quickTimeout = setTimeout(() => tryFind(), 100);
-
-    // Strategy 3: Longer delay for slow loading
-    const slowTimeout = setTimeout(() => tryFind(), 1000);
-
-    window.addEventListener("resize", insertLocaleButton);
-
     function checkAndEnableOrderButton() {
       const targetDate = new Date('2025-07-21T18:00:00+09:00');
       const currentDate = new Date();
@@ -201,13 +115,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
     checkAndEnableOrderButton();
 
     return () => {
-      window.removeEventListener("resize", insertLocaleButton);
       clearInterval(buttonCheckInterval);
-      clearTimeout(quickTimeout);
-      clearTimeout(slowTimeout);
-      observer.disconnect();
     };
-  }, [lang, location.pathname]); // This will re-run on every page navigation
+  }, [lang]);
 
   return (
     <html lang={lang}>
