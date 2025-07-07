@@ -77,9 +77,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
       i18n.changeLanguage("en");
     }
 
-    // Cleanup
+    function checkAndDisableOrderButton() {
+      const targetDate = new Date('2025-07-21T18:00:00+09:00');
+      const currentDate = new Date();
+      
+      const submitButton = document.getElementById('order-entry-submit-button');
+      
+      if (currentDate < targetDate) {
+        if (submitButton) {
+          submitButton.classList.add('orderly-disabled');
+        }
+      } else {
+        if (submitButton) {
+          submitButton.classList.remove('orderly-disabled');
+        }
+      }
+    }
+
+    const buttonCheckInterval = setInterval(checkAndDisableOrderButton, 2000);
+    checkAndDisableOrderButton();
+
     return () => {
       window.removeEventListener("resize", insertLocaleButton);
+      clearInterval(buttonCheckInterval);
     };
   }, []);
 

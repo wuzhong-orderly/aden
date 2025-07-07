@@ -3,7 +3,6 @@ import { useTranslation } from "@orderly.network/i18n";
 import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
-import { OrderlyActiveIcon, OrderlyIcon } from "../components/icons/orderly";
 import { withBasePath } from "./base-path";
 import { PortfolioActiveIcon, PortfolioInactiveIcon, TradingActiveIcon, TradingInactiveIcon, LeaderboardActiveIcon, LeaderboardInactiveIcon } from "@orderly.network/ui";
 
@@ -93,7 +92,6 @@ const getEnabledMenus = () => {
   console.log("Enabled menus from env:", enabledMenusEnv);
 
   if (!enabledMenusEnv || typeof enabledMenusEnv !== 'string' || enabledMenusEnv.trim() === '') {
-    console.log("No VITE_ENABLED_MENUS found, using default menus.");
     return DEFAULT_ENABLED_MENUS;
   }
 

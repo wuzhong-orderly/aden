@@ -172,3 +172,33 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
   color: black;
   display: block;
 }
+
+/* Order entry submit button customization - conditional based on date */
+#order-entry-submit-button.orderly-disabled {
+  cursor: default !important;
+  pointer-events: none !important;
+  opacity: 0.5 !important;
+  background-color: #6b7280 !important;
+  color: #9ca3af !important;
+  position: relative !important;
+}
+
+#order-entry-submit-button.orderly-disabled::after {
+  content: "Trading Disabled" !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: inherit;
+  border-radius: inherit;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#order-entry-submit-button.orderly-disabled * {
+  visibility: hidden !important;
+}
