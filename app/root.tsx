@@ -11,12 +11,9 @@ import { useState, useEffect } from "react";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
-import { useStorageChain } from "@orderly.network/hooks";
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { setStorageChain } = useStorageChain();
   const location = useLocation();
-  const defaultChainId = Number(import.meta.env.VITE_DEFAULT_CHAIN_ID);
 
   const [lang, setLang] = useState("en"); // Start with default, let useEffect handle localStorage
 
@@ -62,8 +59,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 
   useEffect(() => {
-    setStorageChain(defaultChainId);
-
     // Appending language button in header
     const desktopDivSelector = "body > div.oui-scaffold-root> div.oui-box > header > div:nth-child(2)";
     const mobileDivSelector = "body > div.oui-scaffold-root > header > div > div:nth-child(2)";
