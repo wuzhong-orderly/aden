@@ -44,8 +44,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
     setStorageChain(defaultChainId);
 
     // Appending language button in header
-    const desktopDivSelector = "body > div.oui-scaffold-root.oui-font-semibold.oui-bg-base-10.oui-text-base-contrast.oui-flex.oui-flex-col.oui-custom-scrollbar.oui-overflow-auto > div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9 > header > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-2";
-    const mobileDivSelector = "body > div.oui-scaffold-root.oui-w-full.oui-overflow-hidden.oui-bg-base-10 > header > div > div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-x-2";
+    const desktopDivSelector = "body > div.oui-scaffold-root> div.oui-box > header > div:nth-child(2)";
+    const mobileDivSelector = "body > div.oui-scaffold-root > header > div > div:nth-child(2)";
+    const mobileDivSelector2 = "body > div.oui-box > header > div > div:nth-child(2)"
 
     function insertLocaleButton() {
       // Remove existing button first to prevent duplicates
@@ -54,7 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         existingButton.remove();
       }
 
-      const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector);
+      const targetDiv = document.querySelector(desktopDivSelector) || document.querySelector(mobileDivSelector) || document.querySelector(mobileDivSelector2);
       if (targetDiv) {
         const newElem = document.createElement("div");
         newElem.style.cursor = "pointer";
@@ -143,7 +144,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         // Set the CSS variable based on current language
         const tradingDisabledText = lang === "ko" ? "거래 비활성화" : "Trading Disabled";
         document.documentElement.style.setProperty('--trading-disabled-text', `"${tradingDisabledText}"`);
-        
+
         if (submitButton) {
           submitButton.classList.add('orderly-disabled');
         }
