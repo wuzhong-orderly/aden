@@ -134,8 +134,19 @@ body>div.oui-scaffold-root.oui-font-semibold.oui-text-base-contrast.oui-bg-base-
 }
 
 /* This prevents logo from auto scaling and shrinking */
-body>div.oui-scaffold-root.oui-font-semibold.oui-bg-base-10.oui-text-base-contrast.oui-flex.oui-flex-col.oui-custom-scrollbar.oui-overflow-auto>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-3.oui-overflow-hidden>a>img {
-  max-width: none;
+body>div.oui-scaffold-root>header>div>a>img {
+  max-width: none !important;
+  min-width: 120px !important;
+  width: auto !important;
+  height: 42px !important;
+  object-fit: contain !important;
+  flex-shrink: 0 !important;
+}
+
+/* Also apply to the link container to prevent squishing */
+body>div.oui-scaffold-root.oui-font-semibold.oui-bg-base-10.oui-text-base-contrast.oui-flex.oui-flex-col.oui-custom-scrollbar.oui-overflow-auto>div.oui-box.oui-scaffold-topNavbar.oui-bg-base-9>header>div.oui-box.oui-flex.oui-flex-row.oui-items-center.oui-justify-start.oui-flex-nowrap.oui-gap-3.oui-overflow-hidden>a {
+  flex-shrink: 0 !important;
+  display: inline-block !important;
 }
 
 /* Hides top right rewards button when screen width is shrinked to a certain threshold so it doesn't block the tabs*/
