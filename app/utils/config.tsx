@@ -212,28 +212,6 @@ export const useOrderlyConfig = () => {
         mainNavProps: {
           initialMenu: "/",
           mainMenus: allMenuItems,
-          campaigns: {
-            name: t("tradingRewards.rewards"),
-            href: "/rewards",
-            children: [
-              {
-                name: t("common.tradingRewards"),
-                href: "https://aden.io/",
-                // description: t("extend.tradingRewards.description"),
-                // icon: <OrderlyIcon size={14} />,
-                // activeIcon: <OrderlyActiveIcon size={14} />,
-                target: "_blank",
-              },
-              // {
-              //   name: t("extend.staking"),
-              //   href: "https://app.orderly.network/staking",
-              //   description: t("extend.staking.description"),
-              //   icon: <OrderlyIcon size={14} />,
-              //   activeIcon: <OrderlyActiveIcon size={14} />,
-              //   target: "_blank",
-              // },
-            ],
-          },
         },
         bottomNavProps: {
           mainMenus: bottomNavMenus,
