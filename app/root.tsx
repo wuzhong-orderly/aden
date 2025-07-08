@@ -39,6 +39,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  // Handle referral code from URL parameters and set the default referral code
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const urlParams = new URLSearchParams(window.location.search);
+    const refFromUrl = urlParams.get('ref');
+
+    if (refFromUrl) {
+      localStorage.setItem('ref', refFromUrl.trim());
+      console.log(`Referral code from URL: ${refFromUrl}`);
+    } else {
+      const existingRef = localStorage.getItem('ref');
+      if (!existingRef) {
+        const defaultRef = import.meta.env.VITE_DEFAULT_REFERRAL_CODE?.trim();
+        if (defaultRef) {
+          localStorage.setItem('ref', defaultRef);
+          console.log(`Set default referral code: ${defaultRef}`);
+        }
+      }
+    }
+  }, [location.pathname]);
+
 
   useEffect(() => {
     setStorageChain(defaultChainId);
