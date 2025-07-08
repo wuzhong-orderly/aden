@@ -31,7 +31,6 @@ export default function TradingRewardsLayout() {
                 routerAdapter={{ onRouteChange }}
                 bottomNavProps={config.scaffold.bottomNavProps}
                 leftSidebar={null}>
-                <Dashboard.DashboardPage />
                 <Outlet />
             </TradingRewardsLayoutWidget>
         </ReferralProvider >

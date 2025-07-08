@@ -24,12 +24,14 @@ export function useNav() {
       }
 
       const routeMap = {
-        //   "/portfolio": "/portfolio",
         "/portfolio/feeTier": "/portfolio/fee",
         "/portfolio/apiKey": "/portfolio/api-key",
-        //   "/portfolio/positions": "/portfolio/positions",
-        //   "/portfolio/orders": "/portfolio/orders",
-        //   "/portfolio/setting": "/portfolio/setting",
+        "/affiliate": "/referral",
+        "/tradingRewards": "/referral",
+        "/rewards": "/referral",
+        "/rewards/affiliate?tab=affiliate": "/referral/affiliate",
+        "/rewards/affiliate?tab=trader": "/referral/trader",
+        "/referral": "/referral",
       } as Record<string, string>;
 
       const path = routeMap[option.href] || option.href;
