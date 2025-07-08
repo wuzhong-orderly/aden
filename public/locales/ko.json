@@ -1,4 +1,7 @@
 {
+  "common.withdrawals": "출금",
+  "common.deposits": "입금",
+  "portfolio.overview.transferHistory": "전송 내역",
   "common.cancel": "취소",
   "common.confirm": "확인",
   "common.ok": "확인",
@@ -84,6 +87,9 @@
   "assetHistory.status.completed": "완료됨",
   "assetHistory.status.failed": "실패",
   "assetHistory.status.pendingRebalance": "재조정 대기 중",
+  "assetHistory.withdrawals": "출금",
+  "assetHistory.deposits": "입금",
+  "assetHistory.transferHistory": "전송 내역",
   "linkDevice.createQRCode.loading.description": "지갑으로 QR 코드 승인 중...",
   "linkDevice.createQRCode.linkMobileDevice": "모바일 장치 연결",
   "linkDevice.createQRCode.linkMobileDevice.description": "모바일 기기에서 {{hostname}}을 열고 QR 코드를 스캔하여 이 지갑을 연결하세요. 보안을 위해 QR 코드는 60초 후에 만료됩니다. <br/> QR 코드는 모바일 거래를 허용하지만 출금은 활성화하지 않습니다. 화면을 공유하거나 QR 코드의 스크린샷을 공유하지 않도록 하세요.",
