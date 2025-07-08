@@ -3,10 +3,12 @@ import { Outlet, useLocation } from "@remix-run/react";
 import { PortfolioLayoutWidget } from "@orderly.network/portfolio";
 import { useOrderlyConfig } from "@/utils/config";
 import { useNav } from "@/hooks/useNav";
+import { useTranslation } from "@orderly.network/i18n";
 
 export default function PortfolioLayout() {
   const location = useLocation();
   const pathname = location.pathname;
+  const { t } = useTranslation();
 
   const { onRouteChange } = useNav();
   const config = useOrderlyConfig();
@@ -20,23 +22,23 @@ export default function PortfolioLayout() {
 
   const customSideBarItems = [
     {
-      name: "Overview",
+      name: t("common.overview"),
       href: "/portfolio"
     },
     {
-      name: "Positions",
+      name: t("common.positions"),
       href: "/portfolio/positions"
     },
     {
-      name: "Orders",
+      name: t("common.orders"),
       href: "/portfolio/orders"
     },
     {
-      name: "API Keys",
+      name: t("portfolio.apiKeys"),
       href: "/portfolio/api-key"
     },
     {
-      name: "Settings",
+      name: t("portfolio.setting"),
       href: "/portfolio/setting"
     },
   ];
