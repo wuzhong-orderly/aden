@@ -5,7 +5,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
-import { PortfolioActiveIcon, PortfolioInactiveIcon, TradingActiveIcon, TradingInactiveIcon, LeaderboardActiveIcon, LeaderboardInactiveIcon } from "@orderly.network/ui";
+import { AffiliateIcon, MarketsActiveIcon, MarketsInactiveIcon, PortfolioActiveIcon, PortfolioInactiveIcon, TradingActiveIcon, TradingInactiveIcon, LeaderboardActiveIcon, LeaderboardInactiveIcon } from "@orderly.network/ui";
 
 interface MainNavItem {
   name: string;
@@ -149,11 +149,15 @@ const getPnLBackgroundImages = (): string[] => {
 const getBottomNavIcon = (menuName: string) => {
   switch (menuName) {
     case "Trading":
-      return { activeIcon: <TradingActiveIcon />, inactiveIcon: <TradingInactiveIcon /> };
+      return { activeIcon: <TradingActiveIcon />, inactiveIcon: <TradingActiveIcon /> };
     case "Portfolio":
-      return { activeIcon: <PortfolioActiveIcon />, inactiveIcon: <PortfolioInactiveIcon /> };
+      return { activeIcon: <PortfolioActiveIcon />, inactiveIcon: <PortfolioActiveIcon /> };
     case "Leaderboard":
-      return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardInactiveIcon /> };
+      return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardActiveIcon /> };
+    case "Markets":
+      return { activeIcon: <MarketsActiveIcon />, inactiveIcon: <MarketsActiveIcon /> };
+    case "Referral":
+      return { activeIcon: <AffiliateIcon />, inactiveIcon: <AffiliateIcon /> };
     default:
       throw new Error(`Unsupported menu name: ${menuName}`);
   }
@@ -190,7 +194,7 @@ export const useOrderlyConfig = () => {
 
     const allMenuItems = [...translatedEnabledMenus, ...customMenus];
 
-    const supportedBottomNavMenus = ["Trading", "Portfolio", "Leaderboard"];
+    const supportedBottomNavMenus = ["Trading", "Portfolio", "Markets", "Leaderboard", "Referral"];
     const bottomNavMenus = enabledMenus
       .filter(menu => supportedBottomNavMenus.includes(menu.name))
       .map(menu => {
