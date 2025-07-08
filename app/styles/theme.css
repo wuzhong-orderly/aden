@@ -1,5 +1,6 @@
 :root {
   --oui-font-family: 'IBM Plex Sans', sans-serif;
+  --trading-disabled-text: "Trading Disabled";
 
   /* colors */
   --oui-color-primary: 255 186 0;
@@ -184,7 +185,7 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
 }
 
 #order-entry-submit-button.orderly-disabled::after {
-  content: "Trading Disabled" !important;
+  content: var(--trading-disabled-text) !important;
   position: absolute;
   top: 0;
   left: 0;

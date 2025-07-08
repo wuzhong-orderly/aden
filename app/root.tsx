@@ -140,6 +140,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       const submitButton = document.getElementById('order-entry-submit-button');
 
       if (currentDate < targetDate) {
+        // Set the CSS variable based on current language
+        const tradingDisabledText = lang === "ko" ? "거래 비활성화" : "Trading Disabled";
+        document.documentElement.style.setProperty('--trading-disabled-text', `"${tradingDisabledText}"`);
+        
         if (submitButton) {
           submitButton.classList.add('orderly-disabled');
         }
