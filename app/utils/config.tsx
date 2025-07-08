@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "@remix-run/react";
 import { useTranslation } from "@orderly.network/i18n";
 import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
@@ -246,12 +247,12 @@ export const useOrderlyConfig = () => {
             import.meta.env.VITE_HAS_PRIMARY_LOGO === "true"
               ? {
                 component: (
-                  <a
-                    href="/"
+                  <Link
+                    to={typeof window !== 'undefined' ? window.location.origin : ''}
                     style={{ display: "inline-block" }}
                   >
                     <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
-                  </a>
+                  </Link>
                 )
               }
               : { img: withBasePath("/orderly-logo.svg") },
@@ -259,15 +260,15 @@ export const useOrderlyConfig = () => {
             import.meta.env.VITE_HAS_SECONDARY_LOGO === "true"
               ? {
                 component: (
-                  <a
-                    href="/"
+                  <Link
+                    to={typeof window !== 'undefined' ? window.location.origin : ''}
                     style={{ display: "inline-block" }}
                   >
                     <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
-                  </a>
+                  </Link>
                 )
               }
-              : { img: withBasePath("/orderly-logo-secondary.svg") },
+              : { img: withBasePath("/orderly-log-secondaryo.svg") },
         },
       },
       tradingPage: {
