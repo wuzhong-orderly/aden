@@ -1,5 +1,4 @@
 import { Dashboard } from "@orderly.network/affiliate";
-import { Outlet } from "@remix-run/react";
 import {
     TradingRewardsLayoutWidget,
 } from "@orderly.network/trading-rewards";
@@ -19,9 +18,9 @@ export default function TradingRewardsLayout() {
             }}
             routerAdapter={{ onRouteChange }}
             bottomNavProps={config.scaffold.bottomNavProps}
+            leftSidebar={null}
         >
             <Dashboard.AffiliatePage />
-            <Outlet />
         </TradingRewardsLayoutWidget>
     )
 }
