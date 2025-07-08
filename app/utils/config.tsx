@@ -267,7 +267,7 @@ export const useOrderlyConfig = () => {
                   </a>
                 )
               }
-              : { img: withBasePath("/orderly-log-secondaryo.svg") },
+              : { img: withBasePath("/orderly-logo-secondary.svg") },
         },
       },
       tradingPage: {
