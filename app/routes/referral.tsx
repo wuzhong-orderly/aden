@@ -12,16 +12,13 @@ export default function TradingRewardsLayout() {
 
     return (
         <TradingRewardsLayoutWidget
-            {...{
-                footerProps: config.scaffold.footerProps,
-                mainNavProps: {
-                    ...config.scaffold.mainNavProps,
-                    initialMenu: ["/rewards"],
-                },
-                routerAdapter: { onRouteChange },
-                hideSideBar: true,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any}
+            footerProps={config.scaffold.footerProps}
+            mainNavProps={{
+                ...config.scaffold.mainNavProps,
+                initialMenu: "/referral",
+            }}
+            routerAdapter={{ onRouteChange }}
+            bottomNavProps={config.scaffold.bottomNavProps}
         >
             <Dashboard.AffiliatePage />
             <Outlet />
