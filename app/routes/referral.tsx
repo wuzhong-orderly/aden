@@ -1,4 +1,5 @@
-import { Dashboard } from "@orderly.network/affiliate";
+import { Dashboard, ReferralProvider } from "@orderly.network/affiliate";
+import { Outlet } from "@remix-run/react";
 import {
     TradingRewardsLayoutWidget,
 } from "@orderly.network/trading-rewards";
@@ -10,17 +11,29 @@ export default function TradingRewardsLayout() {
     const config = useOrderlyConfig();
 
     return (
-        <TradingRewardsLayoutWidget
-            footerProps={config.scaffold.footerProps}
-            mainNavProps={{
-                ...config.scaffold.mainNavProps,
-                initialMenu: "/referral",
+        <ReferralProvider
+            becomeAnAffiliateUrl={import.meta.env.VITE_BECOME_AFFILIATE_URL}
+            learnAffiliateUrl={import.meta.env.VITE_LEARN_AFFILIATE_URL}
+            referralLinkUrl={import.meta.env.VITE_REFERRAL_LINK_URL}
+            overwrite={{
+                shortBrokerName: import.meta.env.VITE_ORDERLY_BROKER_NAME,
+                brokerName: import.meta.env.VITE_ORDERLY_BROKER_NAME,
+                ref: {
+                },
             }}
-            routerAdapter={{ onRouteChange }}
-            bottomNavProps={config.scaffold.bottomNavProps}
-            leftSidebar={null}
         >
-            <Dashboard.AffiliatePage />
-        </TradingRewardsLayoutWidget>
+            <TradingRewardsLayoutWidget
+                footerProps={config.scaffold.footerProps}
+                mainNavProps={{
+                    ...config.scaffold.mainNavProps,
+                    initialMenu: "/referral",
+                }}
+                routerAdapter={{ onRouteChange }}
+                bottomNavProps={config.scaffold.bottomNavProps}
+                leftSidebar={null}>
+                <Dashboard.DashboardPage />
+                <Outlet />
+            </TradingRewardsLayoutWidget>
+        </ReferralProvider >
     )
 }
