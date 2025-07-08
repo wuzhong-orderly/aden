@@ -46,14 +46,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
     const refFromUrl = urlParams.get('ref');
 
     if (refFromUrl) {
-      localStorage.setItem('ref', refFromUrl.trim());
+      localStorage.setItem('referral_code', refFromUrl.trim());
       console.log(`Referral code from URL: ${refFromUrl}`);
     } else {
-      const existingRef = localStorage.getItem('ref');
+      const existingRef = localStorage.getItem('referral_code');
       if (!existingRef) {
         const defaultRef = import.meta.env.VITE_DEFAULT_REFERRAL_CODE?.trim();
         if (defaultRef) {
-          localStorage.setItem('ref', defaultRef);
+          localStorage.setItem('referral_code', defaultRef);
           console.log(`Set default referral code: ${defaultRef}`);
         }
       }
