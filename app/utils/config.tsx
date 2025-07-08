@@ -247,9 +247,7 @@ export const useOrderlyConfig = () => {
               ? {
                 component: (
                   <a
-                    href="https://Aden.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/"
                     style={{ display: "inline-block" }}
                   >
                     <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
@@ -262,9 +260,7 @@ export const useOrderlyConfig = () => {
               ? {
                 component: (
                   <a
-                    href="https://Aden.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/"
                     style={{ display: "inline-block" }}
                   >
                     <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
