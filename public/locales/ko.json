@@ -478,6 +478,8 @@
   "connector.connectWallet": "지갑 연결",
   "connector.signIn": "로그인",
   "connector.signIn.description": "이 지갑의 소유자임을 확인하세요",
+  "connector.createAccount": "계정 생성",
+  "connector.createAccount.description": "지갑 소유권을 확인하여 계정을 생성하세요",
   "connector.enableTrading": "거래 활성화",
   "connector.enableTrading.description": "초고속 거래를 위한 API에 안전하게 접근할 수 있도록 활성화",
   "connector.switchNetwork": "네트워크 전환",
