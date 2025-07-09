@@ -215,6 +215,13 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
   visibility: hidden !important;
 }
 
+/* Make input with strange ID read-only */
+#\:r3b\: {
+  pointer-events: none !important;
+  user-select: none !important;
+  cursor: not-allowed !important;
+}
+
 img[alt*="WOOFi"], 
 img[alt*="woofi"],
 img[src*="woofi"],
