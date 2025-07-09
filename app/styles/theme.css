@@ -214,3 +214,10 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
 #order-entry-submit-button.orderly-disabled * {
   visibility: hidden !important;
 }
+
+img[alt*="WOOFi"], 
+img[alt*="woofi"],
+img[src*="woofi"],
+svg[class*="woofi"] {
+  display: none !important;
+}
