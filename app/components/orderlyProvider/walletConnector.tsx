@@ -1,10 +1,8 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { WalletConnectorProvider } from '@orderly.network/wallet-connector';
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import type { NetworkId } from "@orderly.network/types";
-import injected from '@web3-onboard/injected-wallets';
-import walletConnect from '@web3-onboard/walletconnect';
-import binanceWallet from '@binance/w3w-blocknative-connector';
+import { initOnBoard } from './config';
 
 interface WalletConnectorProps {
   children: ReactNode;
@@ -12,32 +10,25 @@ interface WalletConnectorProps {
 }
 
 const WalletConnector = ({ children, networkId }: WalletConnectorProps) => {
-  const isBrowser = typeof window !== 'undefined';
-  
-  const evmInitial = import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID && isBrowser 
-    ? {
-        options: {
-          wallets: [
-            binanceWallet({ options: { lng: "en" } }),
-            injected(),
-            walletConnect({
-              projectId: import.meta.env.VITE_WALLET_CONNECT_PROJECT_ID,
-              qrModalOptions: {
-                themeMode: "dark",
-              },
-              dappUrl: window.location.origin,
-            }),
-          ],
-        }
-      } 
-    : undefined;
+  const [initWallet, setInitWallet] = useState(false);
 
+  useEffect(() => {
+    initOnBoard().then(() => {
+      setInitWallet(true);
+    });
+  }, []);
+
+  if (!initWallet) {
+    return null;
+  }
   return (
     <WalletConnectorProvider
       solanaInitial={{
         network: networkId === 'mainnet' ? WalletAdapterNetwork.Mainnet : WalletAdapterNetwork.Devnet
       }}
-      evmInitial={evmInitial}
+      evmInitial={{
+        skipInit: true
+      }}
     >
       {children}
     </WalletConnectorProvider>
