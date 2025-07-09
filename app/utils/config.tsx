@@ -5,7 +5,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
-import { AffiliateIcon, MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, useScreen } from "@orderly.network/ui";
+import { AffiliateIcon, MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, LeaderboardInactiveIcon, useScreen } from "@orderly.network/ui";
 
 interface MainNavItem {
   name: string;
@@ -42,7 +42,7 @@ const ALL_MENU_ITEMS = [
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
   { name: "Leaderboard", href: "/leaderboard", translationKey: "tradingLeaderboard.leaderboard" },
-  { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
+  // { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
 ];
 
 // Default enabled menu items (excluding Leaderboard)
@@ -51,7 +51,7 @@ const DEFAULT_ENABLED_MENUS = [
   { name: "Portfolio", href: "/portfolio", translationKey: "common.portfolio" },
   { name: "Markets", href: "/markets", translationKey: "common.markets" },
   { name: "Leaderboard", href: "/leaderboard", translationKey: "tradingLeaderboard.leaderboard" },
-  { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
+  // { name: "Referral", href: "/referral", translationKey: "affiliate.referral" },
 ];
 
 const getCustomMenuItems = (): MainNavItem[] => {
@@ -149,15 +149,15 @@ const getPnLBackgroundImages = (): string[] => {
 const getBottomNavIcon = (menuName: string) => {
   switch (menuName) {
     case "Trading":
-      return { activeIcon: <TradingActiveIcon />, inactiveIcon: <TradingActiveIcon /> };
+      return { activeIcon: <TradingActiveIcon />, inactiveIcon: <TradingInactiveIcon /> };
     case "Portfolio":
-      return { activeIcon: <PortfolioActiveIcon />, inactiveIcon: <PortfolioActiveIcon /> };
+      return { activeIcon: <PortfolioActiveIcon />, inactiveIcon: <PortfolioInactiveIcon /> };
     case "Leaderboard":
-      return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardActiveIcon /> };
+      return { activeIcon: <LeaderboardActiveIcon />, inactiveIcon: <LeaderboardInactiveIcon /> };
     case "Markets":
-      return { activeIcon: <MarketsActiveIcon />, inactiveIcon: <MarketsActiveIcon /> };
-    case "Referral":
-      return { activeIcon: <AffiliateIcon />, inactiveIcon: <AffiliateIcon /> };
+      return { activeIcon: <MarketsActiveIcon />, inactiveIcon: <MarketsInactiveIcon /> };
+    // case "Referral":
+    //   return { activeIcon: <AffiliateIcon />, inactiveIcon: <AffiliateIcon /> };
     default:
       throw new Error(`Unsupported menu name: ${menuName}`);
   }
