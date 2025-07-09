@@ -5,7 +5,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
-import { AffiliateIcon, MarketsActiveIcon, MarketsInactiveIcon, PortfolioActiveIcon, PortfolioInactiveIcon, TradingActiveIcon, TradingInactiveIcon, LeaderboardActiveIcon, LeaderboardInactiveIcon } from "@orderly.network/ui";
+import { AffiliateIcon, MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, useScreen } from "@orderly.network/ui";
 
 interface MainNavItem {
   name: string;
@@ -181,6 +181,7 @@ const getColorConfig = (): ColorConfigInterface | undefined => {
 
 export const useOrderlyConfig = () => {
   const { t } = useTranslation();
+  const { isMobile } = useScreen();
 
   return useMemo<OrderlyConfig>(() => {
     const enabledMenus = getEnabledMenus();
@@ -233,7 +234,11 @@ export const useOrderlyConfig = () => {
                     to={typeof window !== 'undefined' ? window.location.origin : ''}
                     style={{ display: "inline-block" }}
                   >
-                    <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
+                    {
+                      isMobile
+                        ? <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
+                        : <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
+                    }
                   </Link>
                 )
               }
@@ -272,5 +277,5 @@ export const useOrderlyConfig = () => {
         },
       },
     };
-  }, [t]);
+  }, [t, isMobile]);
 };
