@@ -11,6 +11,6 @@ export default function TradingRewardsLayout() {
     const config = useOrderlyConfig();
 
     return (
-        <Dashboard.HomePage />
+        <Dashboard.DashboardPage />
     )
 }
