@@ -31,6 +31,7 @@ const setNetworkId = (networkId: NetworkId) => {
 
 const PrivyConnector = lazy(() => import("@/components/orderlyProvider/privyConnector"));
 const WalletConnector = lazy(() => import("@/components/orderlyProvider/walletConnector"));
+const ServiceRestrictionsDialog = lazy(() => import("@/components/orderlyProvider/ServiceRestrictionsDialog"));
 
 const LocaleProviderWithLanguages = lazy(async () => {
 	const languageCodes = import.meta.env.VITE_AVAILABLE_LANGUAGES?.split(',') || ['en'];
@@ -169,6 +170,7 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 				mainnet: { id: 56 }
 			}}
 		>
+			<ServiceRestrictionsDialog />
 			{props.children}
 		</OrderlyAppProvider>
 	);
