@@ -232,7 +232,7 @@ export const useOrderlyConfig = () => {
                 component: (
                   <Link
                     id="primary-logo-link"
-                    to={withBasePath("/")}
+                    to="/"
                   >
                     {
                       isMobile
@@ -249,7 +249,7 @@ export const useOrderlyConfig = () => {
                 component: (
                   <Link
                     id="secondary-logo-link"
-                    to={withBasePath("/")}
+                    to="/"
                   >
                     <img src={withBasePath("/logo-secondary.webp")} alt="logo" />
                   </Link>
