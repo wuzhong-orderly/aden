@@ -231,13 +231,13 @@ export const useOrderlyConfig = () => {
               ? {
                 component: (
                   <Link
-                    to={typeof window !== 'undefined' ? window.location.origin : ''}
-                    style={{ display: "inline-block" }}
+                    id="primary-logo-link"
+                    to={withBasePath("/")}
                   >
                     {
                       isMobile
-                        ? <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
-                        : <img src={withBasePath("/logo.webp")} alt="logo" style={{ height: "42px" }} />
+                        ? <img src={withBasePath("/logo-secondary.webp")} alt="logo" />
+                        : <img src={withBasePath("/logo.webp")} alt="logo" />
                     }
                   </Link>
                 )
@@ -248,14 +248,14 @@ export const useOrderlyConfig = () => {
               ? {
                 component: (
                   <Link
-                    to={typeof window !== 'undefined' ? window.location.origin : ''}
-                    style={{ display: "inline-block" }}
+                    id="secondary-logo-link"
+                    to={withBasePath("/")}
                   >
-                    <img src={withBasePath("/logo-secondary.webp")} alt="logo" style={{ height: "42px" }} />
+                    <img src={withBasePath("/logo-secondary.webp")} alt="logo" />
                   </Link>
                 )
               }
-              : { img: withBasePath("/orderly-log-secondaryo.svg") },
+              : { img: withBasePath("/orderly-logo-secondary.svg") },
         },
       },
       tradingPage: {
