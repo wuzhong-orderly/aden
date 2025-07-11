@@ -5,7 +5,7 @@ import { TradingPageProps } from "@orderly.network/trading";
 import { BottomNavProps, FooterProps, MainNavWidgetProps } from "@orderly.network/ui-scaffold";
 import { AppLogos } from "@orderly.network/react-app";
 import { withBasePath } from "./base-path";
-import { AffiliateIcon, MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, LeaderboardInactiveIcon, useScreen } from "@orderly.network/ui";
+import { MarketsActiveIcon, PortfolioActiveIcon, TradingActiveIcon, LeaderboardActiveIcon, MarketsInactiveIcon, PortfolioInactiveIcon, TradingInactiveIcon, LeaderboardInactiveIcon, useScreen } from "@orderly.network/ui";
 
 interface MainNavItem {
   name: string;
