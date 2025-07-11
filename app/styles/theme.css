@@ -175,6 +175,15 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
   display: block;
 }
 
+/* Make changeLocaleButton smaller on mobile */
+@media (max-width: 768px) {
+  #changeLocaleButtonDiv {
+    padding: 4px 8px;
+    min-width: 50px;
+    font-size: 11px;
+  }
+}
+
 /* Order entry submit button customization - conditional based on date */
 #order-entry-submit-button.orderly-disabled {
   cursor: default !important;
