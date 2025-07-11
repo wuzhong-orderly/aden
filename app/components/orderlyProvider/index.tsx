@@ -116,13 +116,19 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 	const config = useOrderlyConfig();
 	const networkId = getNetworkId();
 	const [isClient, setIsClient] = useState(false);
-	const location = useLocation(); // Add this line
+	const location = useLocation();
 
-	// Add the ActiveNavigation logic here
+	// Enhanced ActiveNavigation logic with better DOM checking
 	useEffect(() => {
 		const updateActiveNav = () => {
 			const path = location.pathname;
 			const navItems = document.querySelectorAll('footer>div>div');
+
+			// If nav items aren't ready yet, try again later
+			if (navItems.length === 0) {
+				setTimeout(updateActiveNav, 200);
+				return;
+			}
 
 			// Remove active class from all items
 			navItems.forEach(item => item.classList.remove('nav-active'));
@@ -139,11 +145,41 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 			}
 		};
 
-		// Small delay to ensure DOM is ready
-		const timer = setTimeout(updateActiveNav, 100);
+		// Run immediately if client is ready
+		if (isClient) {
+			updateActiveNav();
+		}
 
-		return () => clearTimeout(timer);
-	}, [location.pathname]);
+		// Also run with delay to catch late-rendered elements
+		const timer = setTimeout(updateActiveNav, 500);
+
+		// Set up a MutationObserver to detect when the footer is added to DOM
+		const observer = new MutationObserver((mutations) => {
+			mutations.forEach((mutation) => {
+				mutation.addedNodes.forEach((node) => {
+					if (node.nodeType === 1) { // Element node
+						const element = node as Element;
+						if (element.tagName === 'FOOTER' || element.querySelector('footer')) {
+							updateActiveNav();
+						}
+					}
+				});
+			});
+		});
+
+		// Start observing
+		if (typeof document !== 'undefined') {
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
+		}
+
+		return () => {
+			clearTimeout(timer);
+			observer.disconnect();
+		};
+	}, [location.pathname, isClient]);
 
 	const privyAppId = import.meta.env.VITE_PRIVY_APP_ID;
 	const usePrivy = !!privyAppId;
