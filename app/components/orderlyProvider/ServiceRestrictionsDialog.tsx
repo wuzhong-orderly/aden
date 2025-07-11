@@ -57,35 +57,38 @@ const ServiceRestrictionsDialog = () => {
 		<SimpleDialog
 			open={isOpen}
 			onOpenChange={setIsOpen}
-			title={title}
+			title=""
 			size="sm"
 			closable={false}
 			actions={actions}
 		>
-			<div className="space-y-4">
-				<div className="flex justify-end mb-4">
+			<div className="space-y-6">
+				<div className="flex justify-between items-center">
+					<h2 className="text-xl font-semibold text-white">
+						{title}
+					</h2>
 					<button
 						onClick={toggleLanguage}
-						className="text-sm text-blue-600 hover:text-blue-700 cursor-pointer"
+						className="text-sm text-blue-400 hover:text-blue-300 cursor-pointer font-medium"
 					>
 						{isKorean ? "English" : "한국어"}
 					</button>
 				</div>
 
-				<p className="text-sm text-gray-600">
+				<p className="text-sm text-white/90 leading-relaxed">
 					{content.intro}
 				</p>
 				
 				<div>
-					<h4 className="font-medium text-sm mb-2">{content.restrictionsTitle}</h4>
-					<ul className="text-sm text-gray-600 space-y-1 list-disc pl-4">
+					<h4 className="font-semibold text-white mb-3">{content.restrictionsTitle}</h4>
+					<ul className="text-sm text-white/90 space-y-2 list-disc pl-5 leading-relaxed">
 						{content.restrictions.map((restriction, index) => (
 							<li key={index}>{restriction}</li>
 						))}
 					</ul>
 				</div>
 
-				<p className="text-sm text-gray-600">
+				<p className="text-sm text-white/80 leading-relaxed border-t border-white/20 pt-4">
 					{content.disclaimer}
 				</p>
 			</div>

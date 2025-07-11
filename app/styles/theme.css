@@ -173,6 +173,7 @@ body>div.oui-box.oui-size-width.oui-size-height.oui-flex.oui-flex-col.oui-items-
   user-select: none;
   color: black;
   display: block;
+  white-space: nowrap;
 }
 
 /* Make changeLocaleButton smaller on mobile */
@@ -255,4 +256,8 @@ svg[class*="woofi"] {
   object-fit: contain !important;
   flex-shrink: 0 !important;
   display: block !important;
+}
+
+header > * {
+  zoom: 0.85;
 }

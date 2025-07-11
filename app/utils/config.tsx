@@ -234,11 +234,7 @@ export const useOrderlyConfig = () => {
                     id="primary-logo-link"
                     to="/"
                   >
-                    {
-                      isMobile
-                        ? <img src={withBasePath("/logo-secondary.svg")} alt="logo" />
-                        : <img src={withBasePath("/logo.svg")} alt="logo" />
-                    }
+                    <img src={withBasePath("/logo.svg")} alt="logo" />
                   </Link>
                 )
               }
