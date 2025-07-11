@@ -221,7 +221,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         } />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://aden.io/" />
-        <meta property="og:image" content={withBasePath("/logo.webp")} />
+        <meta property="og:image" content={withBasePath("/logo.svg")} />
       </head>
       <body>
         <OrderlyProvider>

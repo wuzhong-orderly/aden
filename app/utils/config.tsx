@@ -236,8 +236,8 @@ export const useOrderlyConfig = () => {
                   >
                     {
                       isMobile
-                        ? <img src={withBasePath("/logo-secondary.webp")} alt="logo" />
-                        : <img src={withBasePath("/logo.webp")} alt="logo" />
+                        ? <img src={withBasePath("/logo-secondary.svg")} alt="logo" />
+                        : <img src={withBasePath("/logo.svg")} alt="logo" />
                     }
                   </Link>
                 )

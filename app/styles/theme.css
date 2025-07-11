@@ -230,14 +230,15 @@ svg[class*="woofi"] {
 #secondary-logo-link {
   display: inline-block !important;
   flex-shrink: 0 !important;
-  align-self: flex-start !important;
+  align-self: center !important;
+  /* Change from flex-start to center */
   text-decoration: none !important;
   line-height: 0 !important;
 }
 
 #primary-logo-link img,
 #secondary-logo-link img {
-  height: 42px !important;
+  height: 30px !important;
   width: auto !important;
   max-width: none !important;
   min-width: unset !important;

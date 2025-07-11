@@ -9,19 +9,19 @@ let hasAttemptedSwitch = false;
 let lastConnectedWallet: string | null = null;
 
 const getDefaultChainId = (isMainnet: boolean = true): string => {
-  return isMainnet 
+  return isMainnet
     ? '0x38'
     : '0x66eee';
 };
 
 const handleNetworkSwitch = async (walletState: WalletState[]) => {
   if (!onboardInstance || !walletState || walletState.length === 0) return;
-  
+
   const connectedWallet = walletState[0];
   if (!connectedWallet?.chains?.[0] || !connectedWallet.accounts?.length) return;
 
   const currentWalletId = `${connectedWallet.label}-${connectedWallet.accounts[0].address}`;
-  
+
   if (hasAttemptedSwitch && lastConnectedWallet === currentWalletId) {
     return;
   }
@@ -29,23 +29,23 @@ const handleNetworkSwitch = async (walletState: WalletState[]) => {
   hasAttemptedSwitch = true;
   lastConnectedWallet = currentWalletId;
 
-  const currentNetworkId = typeof window !== 'undefined' 
+  const currentNetworkId = typeof window !== 'undefined'
     ? localStorage.getItem('orderly_network_id') || 'mainnet'
     : 'mainnet';
-  
+
   const isMainnet = currentNetworkId === 'mainnet';
   const expectedChainId = getDefaultChainId(isMainnet);
   const currentChainId = connectedWallet.chains[0].id;
 
   if (currentChainId !== expectedChainId) {
     console.log(`Switching from ${currentChainId} to ${expectedChainId}`);
-    
+
     try {
-      const success = await onboardInstance.setChain({ 
+      const success = await onboardInstance.setChain({
         chainId: expectedChainId,
-        wallet: connectedWallet.label 
+        wallet: connectedWallet.label
       });
-      
+
       if (success) {
         console.log(`Successfully switched to chain ${expectedChainId}`);
       } else {
@@ -220,7 +220,7 @@ export async function initOnBoard() {
       appMetadata: {
         name: "Aden DEX",
         description: "Aden DEX",
-        icon: "/logo.webp",
+        icon: "/logo.svg",
       },
       theme: {
         "--w3o-background-color": "#1b112c",
@@ -249,7 +249,7 @@ export async function initOnBoard() {
     walletState.subscribe((wallets: WalletState[]) => {
       // Reset tracking when wallet disconnects
       resetSwitchTracking(wallets);
-      
+
       // Check if a wallet just connected (has an account) and we haven't attempted switch yet
       if (wallets && wallets.length > 0 && wallets[0].accounts?.length > 0) {
         // Add a small delay to ensure the wallet is fully connected
