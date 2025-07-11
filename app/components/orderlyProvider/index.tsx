@@ -3,6 +3,7 @@ import { OrderlyAppProvider } from "@orderly.network/react-app";
 import { useOrderlyConfig } from "@/utils/config";
 import type { NetworkId } from "@orderly.network/types";
 import { LocaleProvider, Resources, defaultLanguages } from "@orderly.network/i18n";
+import { useLocation } from '@remix-run/react';
 
 const NETWORK_ID_KEY = "orderly_network_id";
 
@@ -115,6 +116,34 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 	const config = useOrderlyConfig();
 	const networkId = getNetworkId();
 	const [isClient, setIsClient] = useState(false);
+	const location = useLocation(); // Add this line
+
+	// Add the ActiveNavigation logic here
+	useEffect(() => {
+		const updateActiveNav = () => {
+			const path = location.pathname;
+			const navItems = document.querySelectorAll('footer>div>div');
+
+			// Remove active class from all items
+			navItems.forEach(item => item.classList.remove('nav-active'));
+
+			// Add active class based on current path
+			if (path.includes('/perp') || path.includes('/trading')) {
+				navItems[0]?.classList.add('nav-active'); // Trading
+			} else if (path.includes('/portfolio')) {
+				navItems[1]?.classList.add('nav-active'); // Portfolio
+			} else if (path.includes('/markets')) {
+				navItems[2]?.classList.add('nav-active'); // Markets
+			} else if (path.includes('/leaderboard')) {
+				navItems[3]?.classList.add('nav-active'); // Leaderboard
+			}
+		};
+
+		// Small delay to ensure DOM is ready
+		const timer = setTimeout(updateActiveNav, 100);
+
+		return () => clearTimeout(timer);
+	}, [location.pathname]);
 
 	const privyAppId = import.meta.env.VITE_PRIVY_APP_ID;
 	const usePrivy = !!privyAppId;

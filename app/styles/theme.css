@@ -325,3 +325,61 @@ footer>div>div:hover {
     border-radius: 18px !important;
   }
 }
+
+/* URL-based active states using :has() selector */
+body:has([href*="/perp"]) footer>div>div:nth-child(1),
+body:has([href*="/trading"]) footer>div>div:nth-child(1) {
+  background: rgba(255, 186, 0, 0.15) !important;
+  color: rgb(255, 186, 0) !important;
+}
+
+body:has([href*="/portfolio"]) footer>div>div:nth-child(2) {
+  background: rgba(255, 186, 0, 0.15) !important;
+  color: rgb(255, 186, 0) !important;
+}
+
+body:has([href*="/markets"]) footer>div>div:nth-child(3) {
+  background: rgba(255, 186, 0, 0.15) !important;
+  color: rgb(255, 186, 0) !important;
+}
+
+body:has([href*="/leaderboard"]) footer>div>div:nth-child(4) {
+  background: rgba(255, 186, 0, 0.15) !important;
+  color: rgb(255, 186, 0) !important;
+}
+
+/* Remove the data-route selectors and replace with JavaScript-based solution */
+
+/* Default state for all bottom nav items */
+footer>div>div {
+  padding: 12px 16px !important;
+  border-radius: 20px !important;
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  position: relative !important;
+}
+
+/* Active state class that JavaScript will add */
+footer>div>div.nav-active {
+  background: rgba(255, 186, 0, 0.15) !important;
+  color: rgb(255, 186, 0) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(255, 186, 0, 0.2) !important;
+}
+
+/* Active indicator */
+footer>div>div.nav-active::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -3px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 24px !important;
+  height: 3px !important;
+  background: rgb(255, 186, 0) !important;
+  border-radius: 0 0 3px 3px !important;
+}
