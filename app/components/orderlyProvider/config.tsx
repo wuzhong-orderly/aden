@@ -220,7 +220,7 @@ export async function initOnBoard() {
       appMetadata: {
         name: "Aden DEX",
         description: "Aden DEX",
-        icon: "/logo.svg",
+        icon: `${import.meta.env.VITE_BASE_URL || ''}/logo-secondary.svg`,
       },
       theme: {
         "--w3o-background-color": "#1b112c",
