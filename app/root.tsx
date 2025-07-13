@@ -194,7 +194,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
     // Get allowed tokens from environment variable
     const allowedTokens = import.meta.env.VITE_ALLOWED_TOKENS?.split(',').map(token => token.trim()) || [];
-    console.log('Allowed tokens:', allowedTokens);
 
     window.fetch = async function (url, options) {
       const response = await originalFetch.call(this, url, options);
@@ -202,14 +201,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       // Check if this is the futures API call
       if (typeof url === 'string' && url.includes('/v1/public/futures')) {
         try {
-          console.log('Intercepted futures API call:', url);
           const data = await response.clone().json();
-          console.log('Original response structure:', data);
-          console.log('Original rows count:', data.data?.rows?.length || 'No rows found');
 
           // Filter the data if allowedTokens is configured
           if (allowedTokens.length > 0 && allowedTokens[0] !== '' && data.data?.rows) {
-            console.log('Starting to filter data...');
 
             const filteredRows = data.data.rows.filter(pair => {
               const symbol = pair.symbol;
@@ -222,8 +217,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
               if (isAllowed) {
                 console.log(`✅ Allowing token pair: ${symbol}`);
-              } else {
-                console.log(`❌ Filtering out: ${symbol} (${tokenPart})`);
               }
 
               return isAllowed;
@@ -245,8 +238,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
               statusText: response.statusText,
               headers: response.headers
             });
-          } else {
-            console.log('No filtering applied - either no allowedTokens configured or no rows found');
           }
 
           return response;
