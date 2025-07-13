@@ -11,11 +11,14 @@ import { useState, useEffect } from "react";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
+import { useApiInterceptor } from "@/hooks/useApiInterceptor";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
+  const [lang, setLang] = useState("en");
 
-  const [lang, setLang] = useState("en"); // Start with default, let useEffect handle localStorage
+  // Use the API interceptor hook
+  useApiInterceptor();
 
   // Handle initial language setup
   useEffect(() => {
@@ -187,73 +190,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
       observer.disconnect();
     };
   }, [lang, location.pathname]); // This will re-run on every page navigation
-
-  // Filter token pairs from futures API
-  useEffect(() => {
-    const originalFetch = window.fetch;
-
-    // Get allowed tokens from environment variable
-    const allowedTokens = import.meta.env.VITE_ALLOWED_TOKENS?.split(',').map(token => token.trim()) || [];
-
-    window.fetch = async function (url, options) {
-      const response = await originalFetch.call(this, url, options);
-
-      // Check if this is the futures API call
-      if (typeof url === 'string' && url.includes('/v1/public/futures')) {
-        try {
-          const data = await response.clone().json();
-
-          // Filter the data if allowedTokens is configured
-          if (allowedTokens.length > 0 && allowedTokens[0] !== '' && data.data?.rows) {
-
-            const filteredRows = data.data.rows.filter(pair => {
-              const symbol = pair.symbol;
-
-              // Extract token name (e.g., "PERP_BTC_USDC" -> "BTC")
-              const tokenPart = symbol.replace('PERP_', '').replace('_USDC', '').replace('_USDT', '');
-
-              // Check if token is in allowed list
-              const isAllowed = allowedTokens.includes(tokenPart);
-
-              if (isAllowed) {
-                console.log(`✅ Allowing token pair: ${symbol}`);
-              }
-
-              return isAllowed;
-            });
-
-            console.log(`🎯 Filtered futures data: ${data.data.rows.length} -> ${filteredRows.length} pairs`);
-
-            // Create new response with filtered data
-            const filteredResponse = {
-              ...data,
-              data: {
-                ...data.data,
-                rows: filteredRows
-              }
-            };
-
-            return new Response(JSON.stringify(filteredResponse), {
-              status: response.status,
-              statusText: response.statusText,
-              headers: response.headers
-            });
-          }
-
-          return response;
-        } catch (error) {
-          console.error('Error filtering futures data:', error);
-          return response;
-        }
-      }
-
-      return response;
-    };
-
-    return () => {
-      window.fetch = originalFetch;
-    };
-  }, []); // Empty dependency array since this should only run once
 
   return (
     <html lang={lang}>
