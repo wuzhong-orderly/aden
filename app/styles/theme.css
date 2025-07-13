@@ -383,3 +383,23 @@ footer>div>div.nav-active::before {
   background: rgb(255, 186, 0) !important;
   border-radius: 0 0 3px 3px !important;
 }
+
+/* Add message to deposit dialog - English (default) */
+#oui-deposit-form>div:first-child::after {
+  content: "※ ADEN is a decentralized exchange and does not custody user assets in a centralized manner. All user funds are stored securely in a vault smart contract.";
+  display: block;
+  background: rgba(255, 186, 0, 0.1);
+  border: 1px solid rgba(255, 186, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+/* Korean version - when data-lang="ko" */
+html[data-lang="ko"] #oui-deposit-form>div:first-child::after {
+  content: "※ ADEN은 탈중앙화 거래소로 고객 자산을 중앙화로 보관하지 않습니다. 고객의 모든 자산은 볼트 스마트 컨트랙트에 보관 됩니다.";
+}

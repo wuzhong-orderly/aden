@@ -27,12 +27,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
       setLang(savedLang);
       i18n.changeLanguage(savedLang);
       localStorage.removeItem("lang");
+
+      // Set CSS custom property for language
+      document.documentElement.style.setProperty('--current-lang', savedLang);
+      // Or set data attribute
+      document.documentElement.setAttribute('data-lang', savedLang);
     } else {
       // Check if i18n has a saved language preference
       const currentLang = i18n.language === "ko" ? "ko" : "en";
       setLang(currentLang);
       console.log(`No language found in localStorage, using i18n default: ${currentLang}`);
       i18n.changeLanguage(currentLang);
+
+      // Set CSS custom property for language
+      document.documentElement.style.setProperty('--current-lang', currentLang);
+      // Or set data attribute
+      document.documentElement.setAttribute('data-lang', currentLang);
     }
   }, []);
 
