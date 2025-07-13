@@ -93,7 +93,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           window.location.reload();
         };
         targetDiv.insertBefore(newElem, targetDiv.firstChild);
-        console.log("Language button inserted on", location.pathname);
         return true;
       }
       return false;
@@ -103,13 +102,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
     function tryFind(retryCount = 0) {
       const maxRetries = 10;
       if (insertLocaleButton()) {
-        console.log("Language button successfully inserted");
         return;
       }
 
       if (retryCount < maxRetries) {
         const delay = Math.min(500 * Math.pow(1.5, retryCount), 3000); // Exponential backoff, max 3s
-        console.log(`Retrying to insert language button, attempt ${retryCount + 1}/${maxRetries}, delay: ${delay}ms`);
         setTimeout(() => tryFind(retryCount + 1), delay);
       } else {
         console.warn("Failed to insert language button after maximum retries");
@@ -133,7 +130,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           });
 
           if (hasRelevantChanges && !document.getElementById("changeLocaleButtonDiv")) {
-            console.log("DOM change detected, re-inserting language button");
             setTimeout(() => tryFind(), 100);
           }
         }
@@ -147,7 +143,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
     });
 
     // Initial insertion with multiple strategies
-    console.log("Page navigation detected:", location.pathname);
 
     // Strategy 1: Immediate attempt
     tryFind();
@@ -192,6 +187,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       observer.disconnect();
     };
   }, [lang, location.pathname]); // This will re-run on every page navigation
+
 
   return (
     <html lang={lang}>
