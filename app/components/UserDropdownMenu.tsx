@@ -5,6 +5,7 @@ import { useUserStore } from '~/store/userStore';
 import { useTranslation } from '~/i18n/TranslationContext';
 import { useUserAssetsStore } from '~/store/userAssetsStore';
 import NumberAnimation from '~/components/NumberAnimation';
+import { withBasePath } from "@/utils/base-path";
 
 interface UserDropdownMenuProps {
   isOpen: boolean;
@@ -50,7 +51,7 @@ const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
         <div className="dc-absolute dc-top-[-26px] dc-left-0 dc-w-52 dc-h-52 dc-rounded-full dc-bg-[#40B185] dc-blur-2xl"></div>
         <div className='dc-flex dc-flex-col dc-justify-center dc-w-1/2 dc-gap-8'>
           <div className='dc-flex dc-items-center dc-w-full'>
-            <img src="/images/USDT.png" alt="USDT" className="dc-w-20 dc-h-20 dc-mr-4" />
+            <img src={withBasePath("/images/USDT.png")} alt="USDT" className="dc-w-20 dc-h-20 dc-mr-4" />
             <span className="dc-text-14 dc-font-medium dc-text-[#898D99]">{t('userInfo.usdt')}</span>
           </div>
           <span className="dc-text-14 dc-font-bold dc-text-white">
@@ -62,7 +63,7 @@ const UserDropdownMenu: React.FC<UserDropdownMenuProps> = ({
         </div>
         <div className='dc-flex dc-flex-col dc-justify-center dc-w-1/2 dc-gap-8'>
           <div className='dc-flex dc-items-center dc-w-full'>
-            <img src="/images/bugs.png" alt="BUGS" className="dc-w-20 dc-h-20 dc-mr-4" />
+            <img src={withBasePath("/images/bugs.png")} alt="BUGS" className="dc-w-20 dc-h-20 dc-mr-4" />
             <span className="dc-text-14 dc-font-medium dc-text-[#898D99]">{t('userInfo.bugs')}</span>
           </div>
           <span className="dc-text-14 dc-font-bold dc-text-white">

@@ -11,6 +11,7 @@ import { UserAssets } from "~/store/userAssetsStore";
 import { cn } from "~/utils";
 import { useTranslation } from "~/i18n/TranslationContext";
 import { MockInvestmentConfig } from "~/api/mock_investment_config";
+import { withBasePath } from "@/utils/base-path";
 
 interface OrderBookEntry {
     price: string;
@@ -943,8 +944,8 @@ export default function Desktop({
                         </div>
 
                         <div className="dc-flex dc-items-center dc-justify-end dc-gap-4 dc-mb-10 dc-ml-auto">
-                            {isSoundMute && <img src="/images/check_circle.png" alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(false)} />}
-                            {!isSoundMute && <img src="/images/check_white_circle.png" alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(true)} />}
+                            {isSoundMute && <img src={withBasePath("/images/check_circle.png")} alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(false)} />}
+                            {!isSoundMute && <img src={withBasePath("/images/check_white_circle.png")} alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(true)} />}
                             <span className="dc-text-10 dc-text-[#898D99] dc-mr-20">{t('trading.sound')}</span>
                             {activeOrderTab === "Position" && <button className="dc-ml-auto dc-text-12 dc-h-36 dc-px-16 dc-py-2  dc-text-white dc-bg-white dc-bg-opacity-2 dc-border dc-border-white dc-border-opacity-2 dc-rounded-[24px]" onClick={handleClickCloseAllModal}>{t('trading.closeAll')}</button>}
                             {activeOrderTab === "Current Orders" && <button className="dc-ml-auto dc-text-12 dc-h-36 dc-px-16 dc-py-2 dc-text-white dc-bg-white dc-bg-opacity-2 dc-border dc-border-white dc-border-opacity-2 dc-rounded-[24px]" onClick={handleClickCancelAllOrderModal}>{t('trading.cancelAll')}</button>}

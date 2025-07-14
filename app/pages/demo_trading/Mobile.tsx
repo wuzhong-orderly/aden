@@ -15,6 +15,7 @@ import { UserPnl } from "~/api/user_pnls";
 import MobileBottomNav from "~/components/MobileBottomNav";
 import { useTranslation } from "~/i18n/TranslationContext";
 import { MockInvestmentConfig } from "~/api/mock_investment_config";
+import { withBasePath } from "@/utils/base-path";
 
 interface OrderBookEntry {
     price: string;
@@ -567,8 +568,8 @@ export default function Mobile({
                         </div>
 
                         <div className="dc-flex dc-items-center dc-justify-end dc-gap-4 dc-mb-8">
-                            {isSoundMute && <img src="/images/check_circle.png" alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(false)} />}
-                            {!isSoundMute && <img src="/images/check_white_circle.png" alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(true)} />}
+                            {isSoundMute && <img src={withBasePath("/images/check_circle.png")} alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(false)} />}
+                            {!isSoundMute && <img src={withBasePath("/images/check_white_circle.png")} alt="mute" className="dc-w-16 dc-h-16 dc-ml-auto dc-rounded-sm dc-cursor-pointer" onClick={() => setIsSoundMute(true)} />}
                             <span className="dc-text-10 dc-text-[#898D99]">{t('trading.sound')}</span>
                         </div>
 
@@ -841,7 +842,7 @@ export default function Mobile({
                                             <div className="dc-flex dc-flex-col dc-gap-16 dc-mb-12">
                                                 <div className="dc-flex dc-items-center dc-h-24">
                                                     <img
-                                                        src={`/images/${position.symbol.replace('USDT', '').toLowerCase()}.png`}
+                                                        src={withBasePath(`/images/${position.symbol.replace('USDT', '').toLowerCase()}.png`)}
                                                         alt={position.symbol}
                                                         className="dc-w-24 dc-h-24 dc-mr-12"
                                                     />
@@ -999,7 +1000,7 @@ export default function Mobile({
                                         <div className="dc-flex dc-flex-col dc-gap-16 dc-mb-12">
                                             <div className="dc-flex dc-items-center dc-h-24">
                                                 <img
-                                                    src={`/images/${order.symbol.replace('USDT', '').toLowerCase()}.png`}
+                                                    src={withBasePath(`/images/${order.symbol.replace('USDT', '').toLowerCase()}.png`)}
                                                     alt={order.symbol}
                                                     className="dc-w-24 dc-h-24 dc-mr-12"
                                                 />
@@ -1085,7 +1086,7 @@ export default function Mobile({
                                                 <div className="dc-text-11 dc-flex dc-items-center dc-gap-8">
                                                     <div className="dc-min-w-112 dc-w-112 dc-flex dc-items-center dc-justify-center dc-text-center">
                                                         <img
-                                                            src={`/images/${order.symbol.replace('USDT', '').toLowerCase()}.png`}
+                                                            src={withBasePath(`/images/${order.symbol.replace('USDT', '').toLowerCase()}.png`)}
                                                             alt={order.symbol}
                                                             className="dc-w-16 dc-h-16 dc-mr-8"
                                                         />
@@ -1166,7 +1167,7 @@ export default function Mobile({
                                                 <div className="dc-text-11 dc-flex dc-items-center dc-gap-8">
                                                     <div className="dc-min-w-112 dc-w-112 dc-flex dc-items-center dc-justify-center dc-text-center">
                                                         <img
-                                                            src={`/images/${pnl.symbol.replace('USDT', '').toLowerCase()}.png`}
+                                                            src={withBasePath(`/images/${pnl.symbol.replace('USDT', '').toLowerCase()}.png`)}
                                                             alt={pnl.symbol}
                                                             className="dc-w-16 dc-h-16 dc-mr-8"
                                                         />
