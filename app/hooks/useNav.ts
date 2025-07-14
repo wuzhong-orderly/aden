@@ -13,7 +13,11 @@ export function useNav() {
       const queryString = searchParamsString ? `?${searchParamsString}` : "";
 
       if (option.target === "_blank") {
-        window.open(option.href);
+        let href = option.href;
+        if (href === "/v2") {
+          href = "/v2/";
+        }
+        window.open(href);
         return;
       }
 
@@ -36,6 +40,8 @@ export function useNav() {
 
       const path = routeMap[option.href] || option.href;
 
+      // Remix navigate() automatically handles the basename from vite config
+      // so we don't need to add /v2 prefix here
       navigate(`${path}${queryString}`);
     },
     [navigate, searchParams]
