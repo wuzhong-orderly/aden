@@ -4,6 +4,7 @@ import { useOrderlyConfig } from "@/utils/config";
 import type { NetworkId } from "@orderly.network/types";
 import { LocaleProvider, Resources, defaultLanguages } from "@orderly.network/i18n";
 import { useLocation } from '@remix-run/react';
+import { useApiInterceptor } from "@/hooks/useApiInterceptor";
 
 const NETWORK_ID_KEY = "orderly_network_id";
 
@@ -221,6 +222,8 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 		},
 		[]
 	);
+
+	useApiInterceptor();
 
 	const appProvider = (
 		<OrderlyAppProvider

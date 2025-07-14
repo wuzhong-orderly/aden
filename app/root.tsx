@@ -11,14 +11,10 @@ import { useState, useEffect } from "react";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
-import { useApiInterceptor } from "@/hooks/useApiInterceptor";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [lang, setLang] = useState("en");
-
-  // Use the API interceptor hook
-  useApiInterceptor();
 
   // Handle initial language setup
   useEffect(() => {
