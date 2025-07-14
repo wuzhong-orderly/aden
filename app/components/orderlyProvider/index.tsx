@@ -229,6 +229,11 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 			networkId={networkId}
 			onChainChanged={onChainChanged}
 			appIcons={config.orderlyAppProvider.appIcons}
+			orderbookDefaultTickSizes={{
+				PERP_BTC_USDC: "10",
+				PERP_ETH_USDC: "0.1",
+				PERP_SOL_USDC: "0.01",
+			}}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(chainFilter && { chainFilter } as any)}
 			defaultChain={{
