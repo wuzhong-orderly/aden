@@ -156,29 +156,50 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
     window.addEventListener("resize", insertLocaleButton);
 
-    function checkAndDisableOrderButton() {
+    function checkAndEnableOrderButton() {
       const targetDate = new Date('2025-07-21T18:00:00+09:00');
       const currentDate = new Date();
 
       const submitButton = document.getElementById('order-entry-submit-button');
 
       if (currentDate < targetDate) {
-        // Set the CSS variable based on current language
+        // Before target date: hide real button, show fake disabled button
         const tradingDisabledText = lang === "ko" ? "거래 비활성화" : "Trading Disabled";
-        document.documentElement.style.setProperty('--trading-disabled-text', `"${tradingDisabledText}"`);
 
         if (submitButton) {
-          submitButton.classList.add('orderly-disabled');
+          // Hide the real button
+          submitButton.style.display = 'none';          // Create or update fake button
+          let fakeButton = document.getElementById('fake-order-entry-submit-button');
+          if (!fakeButton && submitButton.parentElement) {
+            fakeButton = document.createElement('button');
+            fakeButton.id = 'fake-order-entry-submit-button';
+            fakeButton.textContent = tradingDisabledText;
+            fakeButton.setAttribute('disabled', 'true');
+
+            // Insert fake button right after the real button
+            submitButton.parentElement.insertBefore(fakeButton, submitButton.nextSibling);
+          } else if (fakeButton) {
+            // Update text if language changed
+            fakeButton.textContent = tradingDisabledText;
+          }
         }
       } else {
+        // After target date: show real button, remove fake button
         if (submitButton) {
-          submitButton.classList.remove('orderly-disabled');
+          // Show the real button
+          submitButton.style.display = 'block';
+
+          // Remove fake button if it exists
+          const fakeButton = document.getElementById('fake-order-entry-submit-button');
+          if (fakeButton) {
+            fakeButton.remove();
+          }
         }
       }
     }
 
-    const buttonCheckInterval = setInterval(checkAndDisableOrderButton, 2000);
-    checkAndDisableOrderButton();
+    const buttonCheckInterval = setInterval(checkAndEnableOrderButton, 2000);
+    checkAndEnableOrderButton();
 
     return () => {
       window.removeEventListener("resize", insertLocaleButton);
@@ -232,9 +253,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <TranslationProvider>
           <AppSocketProvider>
-             <OrderlyProvider>
+            <OrderlyProvider>
               {children}
-             </OrderlyProvider>
+            </OrderlyProvider>
           </AppSocketProvider>
         </TranslationProvider>
         <ScrollRestoration />
