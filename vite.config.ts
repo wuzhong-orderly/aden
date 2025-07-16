@@ -15,17 +15,13 @@ export default defineConfig(() => {
     noExternal.push("ethers");
   }
 
-  const basePath = process.env.PUBLIC_PATH || "/v2/";
-
   return {
-    base: basePath,
     ssr: {
       noExternal,
       external: ["@privy-io/cross-app-connect/rainbow-kit"],
     },
     plugins: [
       remix({
-        basename: basePath,
         ssr: false,
         future: {
           v3_fetcherPersist: true,

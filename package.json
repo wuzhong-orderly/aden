@@ -9,7 +9,6 @@
   },
   "scripts": {
     "build": "remix vite:build",
-    "build:spa": "tsx build.ts",
     "dev": "remix vite:dev",
     "dev:dctailwind": "npx tailwindcss -c ./tailwind.drinkcode.config.js -i ./tailwind.drinkcode.css -o ./app/styles/drinkcode.css --watch",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
