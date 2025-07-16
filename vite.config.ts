@@ -15,7 +15,7 @@ export default defineConfig(() => {
     noExternal.push("ethers");
   }
 
-  const basePath = process.env.PUBLIC_PATH || "/v2/";
+  const basePath = process.env.PUBLIC_PATH || "/";
 
   return {
     base: basePath,
