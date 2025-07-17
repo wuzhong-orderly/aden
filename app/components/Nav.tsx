@@ -11,7 +11,7 @@ import { getCookie, setCookie, removeCookie } from "../utils/cookies"
 import { useUserAssetsStore } from "../store/userAssetsStore"
 import NumberAnimation from "../components/NumberAnimation"
 
-import { useTranslation } from "../i18n/TranslationContext"
+import { useTranslation } from "@orderly.network/i18n"
 import LanguageSwitcher from "./LanguageSwitcher"
 import { getSiteConfig } from "../api/site_config"
 import { getBoard } from "../api/board"

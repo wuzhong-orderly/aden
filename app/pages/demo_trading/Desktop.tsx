@@ -9,7 +9,7 @@ import TradingViewWidget from "~/components/TradingViewWidget";
 import { Position } from "~/store/positionStore";
 import { UserAssets } from "~/store/userAssetsStore";
 import { cn } from "~/utils";
-import { useTranslation } from "~/i18n/TranslationContext";
+import { useTranslation } from "@orderly.network/i18n";
 import { MockInvestmentConfig } from "~/api/mock_investment_config";
 import { withBasePath } from "@/utils/base-path";
 

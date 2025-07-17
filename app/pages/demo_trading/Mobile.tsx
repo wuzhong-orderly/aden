@@ -13,7 +13,7 @@ import useCommonStore from "~/store/commonStore";
 import { UserOrder } from "~/api/user_orders";
 import { UserPnl } from "~/api/user_pnls";
 import MobileBottomNav from "~/components/MobileBottomNav";
-import { useTranslation } from "~/i18n/TranslationContext";
+import { useTranslation } from "@orderly.network/i18n";
 import { MockInvestmentConfig } from "~/api/mock_investment_config";
 import { withBasePath } from "@/utils/base-path";
 

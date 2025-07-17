@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { createPostReport, createCommentReport, type CreatePostReportRequest, type CreateCommentReportRequest } from '~/api/post';
 import { useUserStore } from '~/store/userStore';
-import { useTranslation } from '~/i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 
 interface PostReportModalProps {
   isOpen: boolean;

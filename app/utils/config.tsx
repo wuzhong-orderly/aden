@@ -185,7 +185,7 @@ const getColorConfig = (): ColorConfigInterface | undefined => {
 };
 
 export const useOrderlyConfig = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isMobile } = useScreen();
 
   return useMemo<OrderlyConfig>(() => {
@@ -230,6 +230,7 @@ export const useOrderlyConfig = () => {
       .filter(menu => menu.activeIcon && menu.inactiveIcon);
 
     const bottomNavMenus = [...standardBottomNavMenus, ...mobileBottomNavMenus];
+    console.log('mainMenus', allMenuItems)
 
     return {
       scaffold: {

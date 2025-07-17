@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from '../i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 
 interface LanguageSwitcherProps {
   className?: string;

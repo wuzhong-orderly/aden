@@ -5,7 +5,7 @@ import { Link } from "@remix-run/react"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { cn } from "../utils"
 import SignInModal from "./SignInModal"
-import { useTranslation } from "../i18n/TranslationContext"
+import { useTranslation } from "@orderly.network/i18n"
 import LanguageSwitcher from "./LanguageSwitcher"
 import { withBasePath } from "@/utils/base-path";
 

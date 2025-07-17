@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Item } from '~/api/item';
-import { useTranslation } from '~/i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 
 interface ItemUseConfirmModalProps {
   isOpen: boolean;

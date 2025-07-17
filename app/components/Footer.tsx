@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react" // useEffect 추가
 import { Link } from "@remix-run/react"
 import { cn } from "../utils"
-import { useTranslation } from "../i18n/TranslationContext"
+import { useTranslation } from "@orderly.network/i18n"
 import { getSiteConfig } from "../api/site_config"; // getSiteConfig 임포트
 
 // SiteConfig 데이터 타입을 정의합니다. 필요한 필드만 포함할 수 있습니다.

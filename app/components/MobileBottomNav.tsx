@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@remix-run/react";
 import { Gamepad2 } from "lucide-react";
-import { useTranslation } from "~/i18n/TranslationContext";
+import { useTranslation } from "@orderly.network/i18n";
 import { TradingActiveIcon, TradingInactiveIcon, PortfolioActiveIcon, PortfolioInactiveIcon, LeaderboardActiveIcon, LeaderboardInactiveIcon } from "@orderly.network/ui";
 
 export default function MobileBottomNav() {

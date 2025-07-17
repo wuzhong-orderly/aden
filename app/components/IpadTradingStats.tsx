@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect, useState, useRef } from 'react';
-import { useTranslation } from '~/i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 import { ChevronDownIcon } from 'lucide-react';
 import { useNavigate } from '@remix-run/react';
 

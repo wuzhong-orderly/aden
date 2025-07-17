@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from '@remix-run/react';
 import { logout } from '~/api/auth';
 import { useUserStore } from '~/store/userStore';
-import { useTranslation } from '~/i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 import { useUserAssetsStore } from '~/store/userAssetsStore';
 import NumberAnimation from '~/components/NumberAnimation';
 import { withBasePath } from "@/utils/base-path";

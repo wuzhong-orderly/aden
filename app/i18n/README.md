@@ -17,7 +17,7 @@ The system is built around a React context that provides translations to the ent
 Import the `useTranslation` hook in your component:
 
 ```tsx
-import { useTranslation } from "../i18n/TranslationContext";
+import { useTranslation } from "@orderly.network/i18n";
 
 function MyComponent() {
   const { t, language, setLanguage } = useTranslation();

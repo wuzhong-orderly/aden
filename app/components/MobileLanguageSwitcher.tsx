@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTranslation } from '../i18n/TranslationContext';
+import { useTranslation } from '@orderly.network/i18n';
 import { ChevronDown, ChevronDownIcon } from 'lucide-react';
 import { Language } from '~/i18n/translations';
 import { useState } from 'react';
