@@ -264,25 +264,29 @@ export const useOrderlyConfig = () => {
           // },
           customRender: (components) => {
             return isMobile ? (
-              <>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "8px", width: "100%" }}>
                 {components.title}
-                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
                   <LanguageToggle />
                   {components.scanQRCode}
-                  {components.subAccount}
                   {components.linkDevice}
                   {components.chainMenu}
+                  {components.walletConnect}
                 </div>
-              </>
+              </div>
             ) : (
               <>
-                {components.title}
+                <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+                  {components.title}
+                  {components.mainNav}
+                </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                   <LanguageToggle />
-                  {/* {components.scanQRCode} */}
-                  {components.subAccount}
+                  {components.accountSummary}
                   {components.linkDevice}
+                  {components.subAccount}
                   {components.chainMenu}
+                  {components.walletConnect}
                 </div>
               </>
             );
