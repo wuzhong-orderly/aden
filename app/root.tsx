@@ -8,8 +8,7 @@ import {
 } from "@remix-run/react";
 import OrderlyProvider from "@/components/orderlyProvider";
 import { useState, useEffect } from "react";
-import { AppSocketProvider } from "./contexts/SocketContext";
-import TranslationProvider from "./i18n/TranslationContext";
+import { TranslationProvider } from "./i18n/TranslationContext";
 import "./styles/index.css";
 import { withBasePath } from "./utils/base-path";
 import { i18n } from "@orderly.network/i18n";
@@ -252,11 +251,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TranslationProvider>
-          <AppSocketProvider>
-            <OrderlyProvider>
-              {children}
-            </OrderlyProvider>
-          </AppSocketProvider>
+          <OrderlyProvider>
+            {children}
+          </OrderlyProvider>
         </TranslationProvider>
         <ScrollRestoration />
         <Scripts />
