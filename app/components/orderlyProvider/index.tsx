@@ -2,9 +2,11 @@ import { ReactNode, useCallback, lazy, Suspense, useState, useEffect } from "rea
 import { OrderlyAppProvider } from "@orderly.network/react-app";
 import { useOrderlyConfig } from "@/utils/config";
 import type { NetworkId } from "@orderly.network/types";
-import { LocaleProvider, Resources, defaultLanguages } from "@orderly.network/i18n";
-import { useLocation } from '@remix-run/react';
+import { LocaleProvider, LocaleCode, LocaleEnum, defaultLanguages } from "@orderly.network/i18n";
+import { withBasePath } from "@/utils/base-path";
+import ServiceRestrictionsDialog from "./ServiceRestrictionsDialog";
 import { useApiInterceptor } from "@/hooks/useApiInterceptor";
+import { useLocation } from "@remix-run/react";
 
 const NETWORK_ID_KEY = "orderly_network_id";
 
@@ -31,53 +33,13 @@ const setNetworkId = (networkId: NetworkId) => {
 	}
 };
 
-const PrivyConnector = lazy(() => import("@/components/orderlyProvider/privyConnector"));
-const WalletConnector = lazy(() => import("@/components/orderlyProvider/walletConnector"));
-const ServiceRestrictionsDialog = lazy(() => import("@/components/orderlyProvider/ServiceRestrictionsDialog"));
-
-const LocaleProviderWithLanguages = lazy(async () => {
-	const languageCodes = import.meta.env.VITE_AVAILABLE_LANGUAGES?.split(',') || ['en'];
-
-	const languagePromises = languageCodes.map(async (code: string) => {
-		const trimmedCode = code.trim();
-		try {
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL ?? ''}/locales/${trimmedCode}.json`);
-			if (!response.ok) {
-				throw new Error(`Failed to fetch ${trimmedCode}.json: ${response.status}`);
-			}
-			const data = await response.json();
-			return { code: trimmedCode, data };
-		} catch (error) {
-			console.error(`Failed to load language: ${trimmedCode}`, error);
-			return null;
-		}
-	});
-
-	const results = await Promise.all(languagePromises);
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const resources: Resources<any> = {};
-	results.forEach(result => {
-		if (result) {
-			resources[result.code] = result.data;
-		}
-	});
-
-	const languages = defaultLanguages.filter(lang =>
-		languageCodes.some((code: string) => code.trim() === lang.localCode)
-	);
-
-	return {
-		default: ({ children }: { children: ReactNode }) => (
-			<LocaleProvider
-				resources={resources}
-				languages={languages}
-			>
-				{children}
-			</LocaleProvider>
-		)
-	};
-});
+const getAvailableLanguages = (): string[] => {
+	const languages = import.meta.env.VITE_AVAILABLE_LANGUAGES?.split(',')
+		.map((code: string) => code.trim())
+		.filter((code: string) => code.length > 0) || [];
+	
+	return languages.length > 0 ? languages : ['en'];
+};
 
 const LoadingSpinner = () => (
 	<div className="loading-container">
@@ -112,6 +74,9 @@ const LoadingSpinner = () => (
 		</style>
 	</div>
 );
+
+const PrivyConnector = lazy(() => import("@/components/orderlyProvider/privyConnector"));
+const WalletConnector = lazy(() => import("@/components/orderlyProvider/walletConnector"));
 
 const OrderlyProvider = (props: { children: ReactNode }) => {
 	const config = useOrderlyConfig();
@@ -225,6 +190,39 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 
 	useApiInterceptor();
 
+	const onLanguageChanged = async (lang: LocaleCode) => {
+		if (typeof window !== 'undefined') {
+			const url = new URL(window.location.href);
+			if (lang === LocaleEnum.en) {
+				url.searchParams.delete('lang');
+			} else {
+				url.searchParams.set('lang', lang);
+			}
+			window.history.replaceState({}, '', url.toString());
+		}
+	};
+
+	const loadPath = (lang: LocaleCode) => {
+		const availableLanguages = getAvailableLanguages();
+		
+		if (!availableLanguages.includes(lang)) {
+			return [];
+		}
+		
+		if (lang === LocaleEnum.en) {
+			return withBasePath(`/locales/extend/${lang}.json`);
+		}
+		return [
+			withBasePath(`/locales/${lang}.json`),
+			withBasePath(`/locales/extend/${lang}.json`)
+		];
+	};
+
+	const availableLanguages = getAvailableLanguages();
+	const filteredLanguages = defaultLanguages.filter(lang => 
+		availableLanguages.includes(lang.localCode)
+	);
+
 	const appProvider = (
 		<OrderlyAppProvider
 			brokerId={import.meta.env.VITE_ORDERLY_BROKER_ID}
@@ -257,11 +255,15 @@ const OrderlyProvider = (props: { children: ReactNode }) => {
 		: <WalletConnector networkId={networkId}>{appProvider}</WalletConnector>;
 
 	return (
-		<Suspense fallback={<LoadingSpinner />}>
-			<LocaleProviderWithLanguages>
+		<LocaleProvider
+			onLanguageChanged={onLanguageChanged}
+			backend={{ loadPath }}
+			languages={filteredLanguages}
+		>
+			<Suspense fallback={<LoadingSpinner />}>
 				{walletConnector}
-			</LocaleProviderWithLanguages>
-		</Suspense>
+			</Suspense>
+		</LocaleProvider>
 	);
 };
 
