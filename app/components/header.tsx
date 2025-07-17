@@ -144,7 +144,7 @@ export default function Header() {
         <div className="dc-mr-280 dc-flex">
           <Link to="/" className="dc-flex dc-items-center dc-space-x-2">
             {/* <span className="text-xl font-bold">Logo</span> */}
-            <img src={withBasePath("/images/logo.svg")} alt="logo" />
+            <img src={withBasePath("/logo.svg")} alt="logo" />
           </Link>
         </div>
 

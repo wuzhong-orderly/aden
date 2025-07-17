@@ -202,19 +202,19 @@ export default React.memo(function Nav({ isHeaderCollapsed = false }: NavProps) 
     const collapsed = localStorage.getItem('nav-collapsed') === 'true';
     setIsNavCollapsed(collapsed);
 
-    // 사이트 설정 데이터 가져오기
-    const fetchSiteConfig = async () => {
-      try {
-        const response = await getSiteConfig();
-        if (response.success) {
-          setSiteConfig(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching site config:", error);
-      }
-    };
+    // // 사이트 설정 데이터 가져오기
+    // const fetchSiteConfig = async () => {
+    //   try {
+    //     const response = await getSiteConfig();
+    //     if (response.success) {
+    //       setSiteConfig(response.data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching site config:", error);
+    //   }
+    // };
 
-    fetchSiteConfig();
+    // fetchSiteConfig();
   }, [setIsNavCollapsed]);
 
   // Check auth state whenever user changes
@@ -251,20 +251,20 @@ export default React.memo(function Nav({ isHeaderCollapsed = false }: NavProps) 
     }
   }, [mounted]);
 
-  useEffect(() => {
-    const fetchBoards = async () => {
-      try {
-        const response = await getBoard();
-        if (response.success) {
-          // is_active가 true인 게시판만 필터링
-          setActiveBoards(response.data.filter((b: any) => b.is_active));
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchBoards();
-  }, []);
+  // useEffect(() => {
+  //   const fetchBoards = async () => {
+  //     try {
+  //       const response = await getBoard();
+  //       if (response.success) {
+  //         // is_active가 true인 게시판만 필터링
+  //         setActiveBoards(response.data.filter((b: any) => b.is_active));
+  //       }
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   };
+  //   fetchBoards();
+  // }, []);
 
   const handleClickMyPage = () => {
     navigate("/my_information/info");
