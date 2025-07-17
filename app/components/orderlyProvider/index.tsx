@@ -41,12 +41,28 @@ const LocaleProviderWithLanguages = lazy(async () => {
 	const languagePromises = languageCodes.map(async (code: string) => {
 		const trimmedCode = code.trim();
 		try {
-			const response = await fetch(`${import.meta.env.VITE_BASE_URL ?? ''}/locales/${trimmedCode}.json`);
-			if (!response.ok) {
-				throw new Error(`Failed to fetch ${trimmedCode}.json: ${response.status}`);
+			// Load main language file
+			const mainResponse = await fetch(`${import.meta.env.VITE_BASE_URL ?? ''}/locales/${trimmedCode}.json`);
+			if (!mainResponse.ok) {
+				throw new Error(`Failed to fetch ${trimmedCode}.json: ${mainResponse.status}`);
 			}
-			const data = await response.json();
-			return { code: trimmedCode, data };
+			const mainData = await mainResponse.json();
+
+			// Load extended language file
+			let extendedData = {};
+			try {
+				const extendedResponse = await fetch(`${import.meta.env.VITE_BASE_URL ?? ''}/locales/extend/${trimmedCode}.json`);
+				if (extendedResponse.ok) {
+					extendedData = await extendedResponse.json();
+				}
+			} catch (extendedError) {
+				console.warn(`Extended language file not found for ${trimmedCode}`, extendedError);
+			}
+
+			// Merge main data with extended data (extended data takes precedence)
+			const mergedData = { ...mainData, ...extendedData };
+			
+			return { code: trimmedCode, data: mergedData };
 		} catch (error) {
 			console.error(`Failed to load language: ${trimmedCode}`, error);
 			return null;
